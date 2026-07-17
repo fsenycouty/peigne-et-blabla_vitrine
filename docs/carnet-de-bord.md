@@ -12,6 +12,8 @@
 - Rédaction et validation du cahier des charges (`docs/cahier-des-charges.md`).
 - Création du dépôt `peigne-et-blabla_vitrine`.
 - Rédaction des user stories et mise en place du Kanban pour le suivi de projet sur GitHub.
+- Conception du wireframe et de la maquette
+- Intégration en statique : html/css
 
 ### Difficultés rencontrées / corrigées
 
