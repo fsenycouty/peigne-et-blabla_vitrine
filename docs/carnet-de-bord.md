@@ -9,6 +9,8 @@
 
 ### Travail réalisé
 
+**Cadrage, conception visuelle et intégration** :
+
 - Rédaction et validation du cahier des charges (`docs/cahier-des-charges.md`).
 - Création du dépôt `peigne-et-blabla_vitrine`.
 - Rédaction des user stories et mise en place du Kanban pour le suivi de projet sur GitHub.
@@ -22,3 +24,10 @@
   - **Solution** : génération d'un jeton d'accès personnel (Personal Access Token) classique avec le scope `repo`, utilisé comme mot de passe lors du push.
 
 ### À poursuivre
+
+**Conception des données et mise en place technique** :
+
+- MCD/MLD/MPD.
+- Création des comptes Supabase et Cloudinary.
+- Initialisation du projet (Node.js/Express/EJS).
+- Connexion à la BDD.
