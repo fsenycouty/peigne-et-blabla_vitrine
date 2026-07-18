@@ -34,9 +34,9 @@ Le site permet de :
 ## 4. Livrables
 
 - [x] Cahier des charges (ce document)
-- [ ] Maquette / conception visuelle
-- [ ] Intégration HTML/CSS statique
-- [ ] Conception des données (dictionnaire de données, MCD, MLD, MPD)
+- [x] Maquette / conception visuelle
+- [x] Intégration HTML/CSS statique
+- [x] Conception des données (dictionnaire de données, MCD, MLD, MPD)
 - [ ] Mise en place technique (Node.js, Express, EJS)
 - [ ] Développement des fonctionnalités
 - [ ] Tests

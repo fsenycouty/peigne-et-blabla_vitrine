@@ -1,0 +1,27 @@
+{
+  "name": "peigne-et-blabla_vitrine",
+  "version": "1.0.0",
+  "description": "- **Client** : Alicia, coiffeuse à domicile - **Nom commercial** : Peigne et bla-bla - **Zone d'intervention** : 15 km autour d'Arthez-de-Béarn - **Contact** : 07 59 90 85 54 · peigneetblabla@gmail.com",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.22.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
