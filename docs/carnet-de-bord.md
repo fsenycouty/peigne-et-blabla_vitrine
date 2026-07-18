@@ -38,9 +38,8 @@
 
 **Conception des données** :
 
-- MCD avec mocodo
-- MVD
-- MPD
+- MCD / MVD avec mocodo
+- MPD avec dbdiagram
 
 **Mise en place technique** :
 
