@@ -24,7 +24,7 @@ Le site permet de :
 
 ## 3. Contraintes
 
-- **Budget** : aucun frais récurrent, à part le nom de domaine (environ 10 à 15 € par an).
+- **Budget** : aucun frais récurrent, à part le nom de domaine/hébergement (environ 100 € par an).
 - **Accessibilité** : le site doit être utilisable par tout le monde, y compris avec un lecteur d'écran (textes alternatifs sur les images, icônes décoratives cachées, etc.).
 - **Mobile-first** (priorité au mobile) : le site doit d'abord bien fonctionner sur téléphone, puis s'adapter aux écrans plus grands.
 - **Hébergement des images** : les photos sont stockées avec l'outil Cloudinary (service en ligne fait pour héberger et gérer des images).
@@ -43,3 +43,10 @@ Le site permet de :
 - [ ] Aspects légaux (mentions légales, politique de confidentialité)
 - [ ] Déploiement en ligne
 - [ ] Documentation (README, carnet de bord)
+
+## 5. Évolutions futures possibles
+ 
+- espace d'administration sécurisé pour Alicia (gestion autonome de la galerie) ;
+- gestion de la mise à jour de la gallerie photo ;
+- gestion des prestations/tarifs depuis un espace admin plutôt qu'en dur dans le HTML ;
+- introduction d'un système de disponibilités (calendrier).
