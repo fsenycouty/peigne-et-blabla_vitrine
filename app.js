@@ -1,11 +1,18 @@
 // Fichier principal de l'application Peigne et Blabla
 
 import 'dotenv/config';
-import express from 'express';
+import express, { application } from 'express';
 import routerHome from './routers/routerHome.js';
 
 // Initialisation de l'application Express
 const app = express();
+
+// Configureation de EJS pour les views
+app.set("view engine", "ejs");
+app.set("views", "./views");
+
+// Montre les fichiers statiques (css, img) depuis le dossier public
+app.use(express.static("./public"));
 
 // Utilisation du router pour la page d'accueil
 app.use(routerHome);
