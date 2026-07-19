@@ -1,291 +1,527 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peigne et bla-bla — Coiffeuse à domicile à Arthez-de-Béarn</title>
-<meta name="description" content="Alicia, coiffeuse à domicile dans un rayon de 15 km autour d'Arthez-de-Béarn. Coupe, couleur, brushing, à domicile pour toute la famille.">
-<link rel="icon" href="img/favicon.ico">
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.44.0/dist/tabler-icons.min.css">
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peigne et bla-bla — Coiffeuse à domicile à Arthez-de-Béarn</title>
+    <meta
+      name="description"
+      content="Alicia, coiffeuse à domicile dans un rayon de 15 km autour d'Arthez-de-Béarn. Coupe, couleur, brushing, à domicile pour toute la famille."
+    />
+    <link rel="icon" href="/img/favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.44.0/dist/tabler-icons.min.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <h1 class="sr-only">
+      Peigne et bla-bla — Alicia, coiffeuse à domicile à Arthez-de-Béarn
+    </h1>
 
-<h1 class="sr-only">Peigne et bla-bla — Alicia, coiffeuse à domicile à Arthez-de-Béarn</h1>
+    <!-- ============ NAVIGATION ============ -->
+    <div class="site-nav">
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+      <header class="site-header">
+        <nav class="nav-links" aria-label="Navigation principale">
+          <%- include('partials/nav') %>
+        </nav>
+        <label
+          for="nav-toggle"
+          class="nav-toggle-label"
+          aria-label="Ouvrir le menu"
+        >
+          <i class="ti ti-menu-2" aria-hidden="true"></i>
+        </label>
+        <a href="tel:+33759908554" class="btn-pink">
+          <i class="ti ti-phone icon-inline" aria-hidden="true"></i>07 59 90 85
+          54
+        </a>
+      </header>
+      <nav class="nav-mobile-panel" aria-label="Menu mobile">
+        <%- include('partials/nav') %>
+      </nav>
+    </div>
 
-<!-- ============ NAVIGATION ============ -->
-<div class="site-nav">
-  <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
-  <header class="site-header">
-    <nav class="nav-links" aria-label="Navigation principale">
-      <a href="#home">Accueil</a>
-      <a href="#services">Prestations</a>
-      <a href="#gallery">Galerie</a>
-      <a href="#hours">Mes horaires</a>
-      <a href="#reviews">Avis</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <label for="nav-toggle" class="nav-toggle-label" aria-label="Ouvrir le menu">
-      <i class="ti ti-menu-2" aria-hidden="true"></i>
-    </label>
-    <a href="tel:+33759908554" class="btn-pink">
-      <i class="ti ti-phone icon-inline" aria-hidden="true"></i>07 59 90 85 54
-    </a>
-  </header>
-  <nav class="nav-mobile-panel" aria-label="Menu mobile">
-    <a href="#home">Accueil</a>
-    <a href="#services">Prestations</a>
-    <a href="#gallery">Galerie</a>
-    <a href="#hours">Mes horaires</a>
-    <a href="#reviews">Avis</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</div>
+    <!-- ============ ACCUEIL ============ -->
+    <div id="home">
+      <section class="green-band">
+        <img src="/img/decor.svg" alt="" class="decor" aria-hidden="true" />
+        <div class="green-row">
+          <img
+            src="/img/logo.png"
+            alt="Logo Peigne et bla-bla"
+            class="green-logo"
+            width="136"
+            height="136"
+          />
+          <div>
+            <div class="brand-script">Alicia</div>
+            <div class="brand-title">Coiffeuse à domicile</div>
+            <div class="brand-coords">15 km autour d'Arthez-de-Béarn</div>
+          </div>
+        </div>
+      </section>
 
-<!-- ============ ACCUEIL ============ -->
-<div id="home">
-  <section class="green-band">
-    <img src="img/decor.svg" alt="" class="decor" aria-hidden="true">
-    <div class="green-row">
-      <img src="img/logo.png" alt="Logo Peigne et bla-bla" class="green-logo" width="136" height="136">
-      <div>
-        <div class="brand-script">Alicia</div>
-        <div class="brand-title">Coiffeuse à domicile</div>
-        <div class="brand-coords">
-          15 km autour d'Arthez-de-Béarn
+      <section class="hero-cream">
+        <div class="hero-tagline">La beauté, chez vous en toute simplicité</div>
+        <div class="hero-actions">
+          <a href="#hours" class="btn-pink">Voir mes horaires</a>
+          <a href="tel:+33759908554" class="btn-outline">
+            <i class="ti ti-phone icon-inline" aria-hidden="true"></i>Appeler
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ PRESTATIONS ============ -->
+    <section class="section section-white" id="services">
+      <p class="eyebrow">FEMMES · HOMMES · ENFANTS</p>
+      <h2 class="h2">Mes prestations</h2>
+      <div class="services-subtitle">
+        Coupe, couleur, brushing... je m'adapte à vos envies
+      </div>
+
+      <details class="offer-details">
+        <summary>
+          <i class="ti ti-sparkles" aria-hidden="true"></i>Offre du moment
+        </summary>
+        <div class="offer-content">Aucune offre en cours.</div>
+      </details>
+
+      <div class="tabs-flow">
+        <div class="tabs-buttons">
+          <input
+            type="radio"
+            name="presta-tab"
+            id="presta-femme"
+            class="tab-radio"
+            checked
+          />
+          <label for="presta-femme" class="tab">Femme</label>
+          <input
+            type="radio"
+            name="presta-tab"
+            id="presta-homme"
+            class="tab-radio"
+          />
+          <label for="presta-homme" class="tab">Homme</label>
+          <input
+            type="radio"
+            name="presta-tab"
+            id="presta-enfant"
+            class="tab-radio"
+          />
+          <label for="presta-enfant" class="tab">Enfant</label>
+        </div>
+
+        <div class="card presta-card">
+          <div class="tab-panel" id="panel-femme">
+            <div class="table-scroll">
+              <table class="price-table">
+                <tr>
+                  <th>Forfait</th>
+                  <th>Court</th>
+                  <th>Mi-long</th>
+                  <th>Long</th>
+                </tr>
+                <tr>
+                  <td>Shampoing + Brushing</td>
+                  <td>20€</td>
+                  <td>23€</td>
+                  <td>28€</td>
+                </tr>
+                <tr>
+                  <td>Shampoing + Coupe + Brushing</td>
+                  <td>30€</td>
+                  <td>33€</td>
+                  <td>38€</td>
+                </tr>
+                <tr>
+                  <td>Coloration + Coupe + Brushing</td>
+                  <td>42€</td>
+                  <td>46€</td>
+                  <td>52€</td>
+                </tr>
+                <tr>
+                  <td>Balayage + Coupe + Brushing</td>
+                  <td>50€</td>
+                  <td>58€</td>
+                  <td>65€</td>
+                </tr>
+                <tr>
+                  <td>Mèches + Coupe + Brushing</td>
+                  <td>59€</td>
+                  <td>69€</td>
+                  <td>80€</td>
+                </tr>
+                <tr>
+                  <td>Permanente + Coupe + Brushing</td>
+                  <td>52€</td>
+                  <td>62€</td>
+                  <td>72€</td>
+                </tr>
+                <tr>
+                  <td class="cat" colspan="4">Options &amp; compléments</td>
+                </tr>
+                <tr>
+                  <td>Décoloration</td>
+                  <td>30€</td>
+                  <td>40€</td>
+                  <td>50€</td>
+                </tr>
+                <tr>
+                  <td>Patine</td>
+                  <td>10€</td>
+                  <td>12,50€</td>
+                  <td>15€</td>
+                </tr>
+                <tr>
+                  <td>Dose supplémentaire (coloration, balayage, mèches)</td>
+                  <td>5€</td>
+                  <td>8€</td>
+                  <td>12€</td>
+                </tr>
+                <tr>
+                  <td>Soin/mousse</td>
+                  <td>5€</td>
+                  <td>—</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>Tresses / chignon / coiffage</td>
+                  <td colspan="3">Sur devis</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="tab-panel" id="panel-homme">
+            <table class="price-table">
+              <tr>
+                <th>Prestation</th>
+                <th>Prix</th>
+              </tr>
+              <tr>
+                <td>Shampoing + Coupe + Coiffage</td>
+                <td>17€</td>
+              </tr>
+              <tr>
+                <td>Coupe tondeuse</td>
+                <td>12€</td>
+              </tr>
+              <tr>
+                <td>Barbe (taille + contours)</td>
+                <td>8€</td>
+              </tr>
+            </table>
+          </div>
+          <div class="tab-panel" id="panel-enfant">
+            <table class="price-table">
+              <tr>
+                <th>Prestation</th>
+                <th>Prix</th>
+              </tr>
+              <tr>
+                <td>Enfant de -3 ans</td>
+                <td>8€</td>
+              </tr>
+              <tr>
+                <td>Enfant de 3 à 10 ans</td>
+                <td>10€</td>
+              </tr>
+              <tr>
+                <td>Enfant de 11 à 17 ans — garçon</td>
+                <td>15€</td>
+              </tr>
+              <tr>
+                <td>Enfant de 11 à 17 ans — fille</td>
+                <td>20€</td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="hero-cream">
-    <div class="hero-tagline">La beauté, chez vous en toute simplicité</div>
-    <div class="hero-actions">
-      <a href="#hours" class="btn-pink">Voir mes horaires</a>
-      <a href="tel:+33759908554" class="btn-outline">
-        <i class="ti ti-phone icon-inline" aria-hidden="true"></i>Appeler
-      </a>
-    </div>
-  </section>
-</div>
-
-<!-- ============ PRESTATIONS ============ -->
-<section class="section section-white" id="services">
-  <p class="eyebrow">FEMMES · HOMMES · ENFANTS</p>
-  <h2 class="h2">Mes prestations</h2>
-  <div class="services-subtitle">Coupe, couleur, brushing... je m'adapte à vos envies</div>
-
-  <details class="offer-details">
-    <summary><i class="ti ti-sparkles" aria-hidden="true"></i>Offre du moment</summary>
-    <div class="offer-content">Aucune offre en cours.</div>
-  </details>
-
-  <div class="tabs-flow">
-    <div class="tabs-buttons">
-      <input type="radio" name="presta-tab" id="presta-femme" class="tab-radio" checked>
-      <label for="presta-femme" class="tab">Femme</label>
-      <input type="radio" name="presta-tab" id="presta-homme" class="tab-radio">
-      <label for="presta-homme" class="tab">Homme</label>
-      <input type="radio" name="presta-tab" id="presta-enfant" class="tab-radio">
-      <label for="presta-enfant" class="tab">Enfant</label>
-    </div>
-
-    <div class="card presta-card">
-      <div class="tab-panel" id="panel-femme">
-        <div class="table-scroll">
-        <table class="price-table">
-          <tr><th>Forfait</th><th>Court</th><th>Mi-long</th><th>Long</th></tr>
-          <tr><td>Shampoing + Brushing</td><td>20€</td><td>23€</td><td>28€</td></tr>
-          <tr><td>Shampoing + Coupe + Brushing</td><td>30€</td><td>33€</td><td>38€</td></tr>
-          <tr><td>Coloration + Coupe + Brushing</td><td>42€</td><td>46€</td><td>52€</td></tr>
-          <tr><td>Balayage + Coupe + Brushing</td><td>50€</td><td>58€</td><td>65€</td></tr>
-          <tr><td>Mèches + Coupe + Brushing</td><td>59€</td><td>69€</td><td>80€</td></tr>
-          <tr><td>Permanente + Coupe + Brushing</td><td>52€</td><td>62€</td><td>72€</td></tr>
-          <tr><td class="cat" colspan="4">Options &amp; compléments</td></tr>
-          <tr><td>Décoloration</td><td>30€</td><td>40€</td><td>50€</td></tr>
-          <tr><td>Patine</td><td>10€</td><td>12,50€</td><td>15€</td></tr>
-          <tr><td>Dose supplémentaire (coloration, balayage, mèches)</td><td>5€</td><td>8€</td><td>12€</td></tr>
-          <tr><td>Soin/mousse</td><td>5€</td><td>—</td><td>—</td></tr>
-          <tr><td>Tresses / chignon / coiffage</td><td colspan="3">Sur devis</td></tr>
-        </table>
+    <!-- ============ GALERIE ============ -->
+    <section class="section" id="gallery">
+      <p class="eyebrow">MES RÉALISATIONS</p>
+      <h2 class="h2 h2-spaced">Galerie</h2>
+      <div class="gallery-grid">
+        <div class="ba-slider">
+          <div class="ba-slide ba-before">
+            <span class="ba-label">Avant</span>
+            <img src="/img/1av.jpeg" alt="Avant" />
+          </div>
+          <div class="ba-slide ba-after">
+            <span class="ba-label">Après</span>
+            <img src="/img/1ap.jpeg" alt="Après" />
+          </div>
+        </div>
+        <div class="ba-slider">
+          <div class="ba-slide ba-before">
+            <span class="ba-label">Avant</span>
+            <img src="/img/2av.jpeg" alt="Avant" />
+          </div>
+          <div class="ba-slide ba-after">
+            <span class="ba-label">Après</span>
+            <img src="/img/2ap.jpeg" alt="Après" />
+          </div>
+        </div>
+        <div class="ba-slider">
+          <div class="ba-slide ba-before">
+            <span class="ba-label">Avant</span>
+            <img src="/img/3av.jpeg" alt="Avant" />
+          </div>
+          <div class="ba-slide ba-after">
+            <span class="ba-label">Après</span>
+            <img src="/img/3ap.jpeg" alt="Après" />
+          </div>
+        </div>
+        <div class="ba-slider">
+          <div class="ba-slide ba-before">
+            <span class="ba-label">Avant</span>
+            <img src="/img/4av.jpeg" alt="Avant" />
+          </div>
+          <div class="ba-slide ba-after">
+            <span class="ba-label">Après</span>
+            <img src="/img/4ap.jpeg" alt="Après" />
+          </div>
         </div>
       </div>
-      <div class="tab-panel" id="panel-homme">
-        <table class="price-table">
-          <tr><th>Prestation</th><th>Prix</th></tr>
-          <tr><td>Shampoing + Coupe + Coiffage</td><td>17€</td></tr>
-          <tr><td>Coupe tondeuse</td><td>12€</td></tr>
-          <tr><td>Barbe (taille + contours)</td><td>8€</td></tr>
-        </table>
-      </div>
-      <div class="tab-panel" id="panel-enfant">
-        <table class="price-table">
-          <tr><th>Prestation</th><th>Prix</th></tr>
-          <tr><td>Enfant de -3 ans</td><td>8€</td></tr>
-          <tr><td>Enfant de 3 à 10 ans</td><td>10€</td></tr>
-          <tr><td>Enfant de 11 à 17 ans — garçon</td><td>15€</td></tr>
-          <tr><td>Enfant de 11 à 17 ans — fille</td><td>20€</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ============ GALERIE ============ -->
-<section class="section" id="gallery">
-  <p class="eyebrow">MES RÉALISATIONS</p>
-  <h2 class="h2 h2-spaced">Galerie</h2>
-  <div class="gallery-grid">
-    <div class="ba-slider">
-      <div class="ba-slide ba-before"><span class="ba-label">Avant</span>
-        <img src="img/1av.jpeg" alt="Avant">
-      </div>
-      <div class="ba-slide ba-after"><span class="ba-label">Après</span>
-        <img src="img/1ap.jpeg" alt="Après">
-      </div>
-    </div>
-    <div class="ba-slider">
-      <div class="ba-slide ba-before"><span class="ba-label">Avant</span>
-        <img src="img/2av.jpeg" alt="Avant">
-      </div>
-      <div class="ba-slide ba-after"><span class="ba-label">Après</span>
-        <img src="img/2ap.jpeg" alt="Après">
-      </div>
-    </div>
-    <div class="ba-slider">
-      <div class="ba-slide ba-before"><span class="ba-label">Avant</span>
-        <img src="img/3av.jpeg" alt="Avant">
-      </div>
-      <div class="ba-slide ba-after"><span class="ba-label">Après</span>
-        <img src="img/3ap.jpeg" alt="Après">
-      </div>
-    </div>
-    <div class="ba-slider">
-      <div class="ba-slide ba-before"><span class="ba-label">Avant</span>
-        <img src="img/4av.jpeg" alt="Avant">
-      </div>
-      <div class="ba-slide ba-after"><span class="ba-label">Après</span>
-        <img src="img/4ap.jpeg" alt="Après">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ MES HORAIRES ============ -->
-<section class="section section-white" id="hours">
-  <p class="eyebrow">HORAIRES</p>
-  <h2 class="h2">Mes horaires</h2>
-  <div class="availability-intro">Appelez-moi directement pour réserver — pas de réservation en ligne.</div>
-
-  <div class="card hours-card">
-    <div class="icon-badge"><i class="ti ti-clock" aria-hidden="true"></i></div>
-    <h3>Mes horaires</h3>
-    <div class="hours-list">
-      <div class="hours-row"><span class="days">Lun, mar, jeu, ven</span><span class="time">9h00 – 18h00</span></div>
-      <div class="hours-row"><span class="days">Samedi</span><span class="time">8h30 – 12h30</span></div>
-      <div class="hours-row"><span class="days">Mer, dim</span><span class="time">Fermé</span></div>
-    </div>
-  </div>
-
-  <div class="availability-cta">
-    <a href="tel:+33759908554" class="btn-pink availability-call-btn">
-      <i class="ti ti-phone icon-inline" aria-hidden="true"></i>Appeler pour réserver<br>07 59 90 85 54
-    </a>
-  </div>
-</section>
-
-<!-- ============ AVIS ============ -->
-<section class="section" id="reviews">
-  <p class="eyebrow">TÉMOIGNAGES</p>
-  <h2 class="h2 h2-spaced">Ce qu'elles en disent</h2>
-
-  <div class="google-badge">
-    <div class="google-icon">G</div>
-    <div>
-      <div class="google-rating-score">4.9 <span class="google-rating-stars">★★★★★</span></div>
-      <div class="google-rating-count">basé sur 24 avis Google</div>
-    </div>
-    <a href="#" class="btn-outline google-badge-link">Voir tous les avis</a>
-  </div>
-
-  <div class="review-grid">
-    <div class="card">
-      <div class="stars"><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i></div>
-      <div class="review-quote">Un vrai moment de détente sans sortir de chez moi, et un résultat impeccable.</div>
-      <div class="review-author">— Sophie L.</div>
-      <div class="review-tag"><i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google</div>
-    </div>
-    <div class="card">
-      <div class="stars"><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i></div>
-      <div class="review-quote">Ponctuelle, à l'écoute, et mes enfants adorent leurs nouvelles coupes.</div>
-      <div class="review-author">— Marie B.</div>
-      <div class="review-tag"><i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google</div>
-    </div>
-    <div class="card">
-      <div class="stars"><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i><i class="ti ti-star" aria-hidden="true"></i></div>
-      <div class="review-quote">Le balayage est magnifique, je recommande les yeux fermés.</div>
-      <div class="review-author">— Claire T.</div>
-      <div class="review-tag"><i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google</div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CONTACT ============ -->
-<section class="section section-white" id="contact">
-  <p class="eyebrow">OÙ ET COMMENT</p>
-  <h2 class="h2 h2-spaced">Me contacter</h2>
-
-  <div class="contact-layout">
-    <div class="map-box map-area">
-      <iframe src="https://www.google.com/maps?q=Arthez-de-B%C3%A9arn,France&z=10&output=embed" loading="lazy" title="Zone d'intervention — 15km autour d'Arthez-de-Béarn" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <div class="radius-badge"><i class="ti ti-map-pin icon-pink" aria-hidden="true"></i>Rayon ~15 km</div>
-    </div>
-
-    <div class="coords-box coords-area">
-      <div class="row"><i class="ti ti-map-pin icon-sage" aria-hidden="true"></i>15 km autour d'Arthez-de-Béarn</div>
-      <div class="row"><i class="ti ti-phone icon-sage" aria-hidden="true"></i><a href="tel:+33759908554">07 59 90 85 54</a></div>
-      <div class="row"><i class="ti ti-mail icon-sage" aria-hidden="true"></i><a href="mailto:peigneetblabla@gmail.com">peigneetblabla@gmail.com</a></div>
-    </div>
-
-    <form class="contact-form">
-      <div class="fields-area">
-        <label class="sr-only" for="contact-name">Votre nom</label>
-        <input type="text" id="contact-name" name="name" placeholder="Votre nom">
-
-        <label class="sr-only" for="contact-phone">Votre téléphone</label>
-        <input type="tel" id="contact-phone" name="phone" placeholder="Votre téléphone">
-
-        <label class="sr-only" for="contact-message">Votre message</label>
-        <textarea id="contact-message" name="message" rows="4" placeholder="Votre message"></textarea>
+    <!-- ============ MES HORAIRES ============ -->
+    <section class="section section-white" id="hours">
+      <p class="eyebrow">HORAIRES</p>
+      <h2 class="h2">Mes horaires</h2>
+      <div class="availability-intro">
+        Appelez-moi directement pour réserver — pas de réservation en ligne.
       </div>
 
-      <button type="submit" class="btn-pink button-area">Envoyer</button>
-    </form>
-  </div>
-</section>
+      <div class="card hours-card">
+        <div class="icon-badge">
+          <i class="ti ti-clock" aria-hidden="true"></i>
+        </div>
+        <h3>Mes horaires</h3>
+        <div class="hours-list">
+          <div class="hours-row">
+            <span class="days">Lun, mar, jeu, ven</span
+            ><span class="time">9h00 – 18h00</span>
+          </div>
+          <div class="hours-row">
+            <span class="days">Samedi</span
+            ><span class="time">8h30 – 12h30</span>
+          </div>
+          <div class="hours-row">
+            <span class="days">Mer, dim</span><span class="time">Fermé</span>
+          </div>
+        </div>
+      </div>
 
-<!-- ============ FOOTER ============ -->
-<footer class="site-footer">
-  <img src="img/decor.svg" alt="" class="decor-footer" aria-hidden="true">
-  <img src="img/decor.svg" alt="" class="decor-footer-reverse" aria-hidden="true">
-  <div class="footer-tagline">Prenez le temps pour vous,<br>vous le méritez</div>
-  <div class="footer-hours">
-    Lun, mar, jeu, ven : 9h00 – 18h00<br>Samedi : 8h30 – 12h30
-  </div>
-  <div class="footer-social">
-    <a href="https://www.facebook.com/profile.php?id=61591256733739&sk=directory_contact_info&locale=fr_FR" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ti ti-brand-facebook footer-social-icon" aria-hidden="true"></i></a>
-    <a href="https://www.instagram.com/peigneetblabla/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ti ti-brand-instagram footer-social-icon" aria-hidden="true"></i></a>
-  </div>
-  <div class="footer-signature">Peigne et bla-bla · Alicia, coiffeuse à domicile</div>
+      <div class="availability-cta">
+        <a href="tel:+33759908554" class="btn-pink availability-call-btn">
+          <i class="ti ti-phone icon-inline" aria-hidden="true"></i>Appeler pour
+          réserver<br />07 59 90 85 54
+        </a>
+      </div>
+    </section>
 
-  <div class="footer-legal">
-    <a href="#">Mentions légales</a>
-    <span>·</span>
-    <a href="#">Politique de confidentialité</a>
-  </div>
-  <div class="footer-credit">Site réalisé par Fabrice Seny-Couty</div>
-</footer>
+    <!-- ============ AVIS ============ -->
+    <section class="section" id="reviews">
+      <p class="eyebrow">TÉMOIGNAGES</p>
+      <h2 class="h2 h2-spaced">Ce qu'elles en disent</h2>
 
-</body>
+      <div class="google-badge">
+        <div class="google-icon">G</div>
+        <div>
+          <div class="google-rating-score">
+            4.9 <span class="google-rating-stars">★★★★★</span>
+          </div>
+          <div class="google-rating-count">basé sur 24 avis Google</div>
+        </div>
+        <a href="#" class="btn-outline google-badge-link">Voir tous les avis</a>
+      </div>
+
+      <div class="review-grid">
+        <div class="card">
+          <div class="stars">
+            <i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i>
+          </div>
+          <div class="review-quote">
+            Un vrai moment de détente sans sortir de chez moi, et un résultat
+            impeccable.
+          </div>
+          <div class="review-author">— Sophie L.</div>
+          <div class="review-tag">
+            <i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google
+          </div>
+        </div>
+        <div class="card">
+          <div class="stars">
+            <i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i>
+          </div>
+          <div class="review-quote">
+            Ponctuelle, à l'écoute, et mes enfants adorent leurs nouvelles
+            coupes.
+          </div>
+          <div class="review-author">— Marie B.</div>
+          <div class="review-tag">
+            <i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google
+          </div>
+        </div>
+        <div class="card">
+          <div class="stars">
+            <i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i
+            ><i class="ti ti-star" aria-hidden="true"></i>
+          </div>
+          <div class="review-quote">
+            Le balayage est magnifique, je recommande les yeux fermés.
+          </div>
+          <div class="review-author">— Claire T.</div>
+          <div class="review-tag">
+            <i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section section-white" id="contact">
+      <p class="eyebrow">OÙ ET COMMENT</p>
+      <h2 class="h2 h2-spaced">Me contacter</h2>
+
+      <div class="contact-layout">
+        <div class="map-box map-area">
+          <iframe
+            src="https://www.google.com/maps?q=Arthez-de-B%C3%A9arn,France&z=10&output=embed"
+            loading="lazy"
+            title="Zone d'intervention — 15km autour d'Arthez-de-Béarn"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <div class="radius-badge">
+            <i class="ti ti-map-pin icon-pink" aria-hidden="true"></i>Rayon ~15
+            km
+          </div>
+        </div>
+
+        <div class="coords-box coords-area">
+          <div class="row">
+            <i class="ti ti-map-pin icon-sage" aria-hidden="true"></i>15 km
+            autour d'Arthez-de-Béarn
+          </div>
+          <div class="row">
+            <i class="ti ti-phone icon-sage" aria-hidden="true"></i
+            ><a href="tel:+33759908554">07 59 90 85 54</a>
+          </div>
+          <div class="row">
+            <i class="ti ti-mail icon-sage" aria-hidden="true"></i
+            ><a href="mailto:peigneetblabla@gmail.com"
+              >peigneetblabla@gmail.com</a
+            >
+          </div>
+        </div>
+
+        <form class="contact-form">
+          <div class="fields-area">
+            <label class="sr-only" for="contact-name">Votre nom</label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              placeholder="Votre nom"
+            />
+
+            <label class="sr-only" for="contact-phone">Votre téléphone</label>
+            <input
+              type="tel"
+              id="contact-phone"
+              name="phone"
+              placeholder="Votre téléphone"
+            />
+
+            <label class="sr-only" for="contact-message">Votre message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="4"
+              placeholder="Votre message"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn-pink button-area">Envoyer</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+      <img
+        src="/img/decor.svg"
+        alt=""
+        class="decor-footer"
+        aria-hidden="true"
+      />
+      <img
+        src="/img/decor.svg"
+        alt=""
+        class="decor-footer-reverse"
+        aria-hidden="true"
+      />
+      <div class="footer-tagline">
+        Prenez le temps pour vous,<br />vous le méritez
+      </div>
+      <div class="footer-hours">
+        Lun, mar, jeu, ven : 9h00 – 18h00<br />Samedi : 8h30 – 12h30
+      </div>
+      <div class="footer-social">
+        <a
+          href="https://www.facebook.com/profile.php?id=61591256733739&sk=directory_contact_info&locale=fr_FR"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+          ><i
+            class="ti ti-brand-facebook footer-social-icon"
+            aria-hidden="true"
+          ></i
+        ></a>
+        <a
+          href="https://www.instagram.com/peigneetblabla/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          ><i
+            class="ti ti-brand-instagram footer-social-icon"
+            aria-hidden="true"
+          ></i
+        ></a>
+      </div>
+      <div class="footer-signature">
+        Peigne et bla-bla · Alicia, coiffeuse à domicile
+      </div>
+
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <span>·</span>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+      <div class="footer-credit">Site réalisé par Fabrice Seny-Couty</div>
+    </footer>
+  </body>
 </html>
