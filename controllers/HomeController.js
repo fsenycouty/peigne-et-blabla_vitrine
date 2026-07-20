@@ -2,7 +2,6 @@
 
 // Import de dataPictures pour le test de l'affichage en dynamique de la gallerie
 import dataPictures from "../data/dataPictures.json" with { type: "json"};
-import Picture from "../models/Picture.js";
 
 class HomeController {
   // Envoye à la vue home.ejs
