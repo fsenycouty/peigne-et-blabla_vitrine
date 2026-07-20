@@ -33,7 +33,6 @@
 - Création des comptes Supabase et Cloudinary.
 - Initialisation du projet (Node.js/Express/EJS).
 - Connexion à la BDD.
-- 
 
 ### Travail réalisé
 
@@ -68,10 +67,59 @@
 
 - **Point de vigilance repéré en relecture (corrigé avant tout bug réel)** : l'option `freezeTableName` empêche la pluralisation automatique du nom de table par Sequelize, mais ne suffit pas à faire correspondre exactement `Picture` (modèle, singulier) à `pictures` (table réelle, pluriel, minuscule) — la pluralisation automatique de Sequelize aurait donné `Pictures` avec une majuscule. D'où la nécessité de préciser explicitement `tableName: "pictures"` dans la définition du modèle, plutôt que de compter sur un comportement par défaut.
 
+---
+
+## 19-07-2026
+
+### Objectifs du jour
+
+- Convertir `integration/index.html` en vues EJS, sur la branche `dev_views`, en restant fidèle au rendu déjà validé avec la cliente.
+
+### Travail réalisé
+
+**Développement** :
+
+- Installation et configuration d'EJS comme moteur de vues (`app.set('view engine', 'ejs')`, dossier `views/`).
+- Déplacement des assets statiques (`css/`, `img/`) dans `public/`, servis via `express.static`, plutôt que depuis `integration/`.
+- Conversion de `integration/index.html` en `views/home.ejs` ; `HomeController.home` modifié pour faire `res.render('home')` à la place du `res.send()` de test.
+- Vérification du rendu : comparaison entre la page générée par EJS et l'`integration/index.html`.
+- Passage des chemins d'assets en absolu (`/img/...`, `/css/...`) plutôt qu'en relatif.
+- Extraction d'un partial `views/partials/nav.ejs` : la liste des 6 liens de navigation était dupliquée à l'identique entre la nav desktop et le panneau mobile dans le HTML d'origine ; factorisée en un seul partial inclus aux deux endroits (`<%- include('partials/nav') %>`), sans changement de rendu.
+
+### Difficultés rencontrées / corrigées
+
+- **Découverte en testant le rendu après extraction du partial `nav.ejs`** : les commentaires EJS `<%# ... %>` laissent une ligne vide dans le HTML généré, sauf à les terminer par `-%>` (ex. `<%# ... -%>`). Sans incidence visuelle (espaces ignorés par le navigateur).
+
+---
+
+## 20-07-2026
+
+### Objectifs du jour
+
+- Afficher la galerie de façon dynamique, d'abord simulée puis réellement branchée sur Supabase.
+
+### Travail réalisé
+
+**Développement (suite)** :
+
+- Génération d'un jeu de données de test (`data/dataPictures.json`, 4 paires avant/après) au format attendu par le modèle Sequelize (clés en `camelCase`), pour simuler l'affichage dynamique sans dépendre de Cloudinary/Supabase déjà peuplés.
+- Import du fichier JSON en ES Modules (`import dataPictures from "../data/dataPictures.json" with { type: "json" }`).
+- Ajout d'une boucle EJS dans `views/home.ejs` pour générer les 4 `.ba-slider` de la galerie à partir des données reçues.
+- Upload manuel des 8 photos (4 avant/après) sur Cloudinary via le dashboard (Media Library), un accès laissé en mode « Public » (obligatoire ici : aucun système d'authentification sur le site, les images doivent être accessibles directement par `<img src>`).
+- Saisie manuelle des 4 lignes correspondantes dans la table `pictures` sur Supabase (Table Editor), avec un `position` distinct par ligne pour conserver l'ordre d'affichage.
+- Remplacement du JSON de test par le vrai appel au modèle dans `HomeController.home` : `Picture.findAll({ order: [['position', 'ASC']] })` — la galerie affiche désormais les vraies données de Supabase/Cloudinary.
+
+### Difficultés rencontrées / corrigées
+
+- **`import ... with { type: JSON }` (sans guillemets)** : `SyntaxError: Unexpected identifier 'JSON'`.
+  - **Cause** : l'attribut d'import (`with { type: ... }`) exige une chaîne de caractères littérale ; `JSON` sans guillemets fait référence à l'objet global JavaScript, pas à une chaîne.
+  - **Solution** : `type: "json"` (avec guillemets).
+- **Erreur de syntaxe sur le tri Sequelize** : `order: ['position', 'ASC']` (tableau plat).
+  - **Cause** : Sequelize interprète chaque élément du tableau `order` comme un critère de tri séparé — la requête générée triait donc sur deux colonnes distinctes, `position` et une colonne `ASC` inexistante, ce qui aurait provoqué une erreur SQL à l'exécution.
+  - **Solution** : `order: [['position', 'ASC']]` — un tableau de tuples `[colonne, direction]`, conforme à la syntaxe attendue.
+
 ### À poursuivre
 
-- Phase 6 (développement) : convertir `integration/index.html` en vues EJS (`views/`), en restant fidèle au rendu déjà validé avec la cliente.
-- Créer les routes/contrôleurs réels pour la galerie, branchés sur le modèle `Picture` (remplacer le contrôleur de test « Hello World »).
-- Mettre en place la connexion à Cloudinary (hébergement des photos avant/après de la galerie).
-- Préparer l'intégration de l'API Google Places pour les avis Google (appel à la demande, cache serveur, aucun stockage en base).
-- Mettre en place la gestion des erreurs (middlewares 404 et 500), prévue dès le début de la Phase 6.
+- Nettoyer `data/dataPictures.json` (fichier de test devenu inutile, encore commité dans le dépôt).
+- Mettre en place la gestion des erreurs (middlewares 404 et 500).
+- Avis Google via l'API Google Places (appel à la demande, cache serveur, aucun stockage en base).
