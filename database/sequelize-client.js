@@ -25,7 +25,13 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 
 export default sequelize;
 
-// test de la connexion à la base de données
-sequelize.authenticate()
-  .then(() => console.log('Connexion à Supabase réussie ✅'))
-  .catch((err) => console.error('Erreur de connexion :', err));
+// Test de la connexion avec la base de donnée (node database/sequelize-client.js)
+try {
+  // Pour se connecter, l'ORM Sequelize utilise la méthode "authenticate()" qui renvoie une promesse
+  await sequelize.authenticate();
+  console.log(
+    "✅ Connection to the database has been established successfully."
+  );
+} catch (error) {
+  console.error("❌ Unable to connect to the database:", error);
+}

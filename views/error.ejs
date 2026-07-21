@@ -1,0 +1,32 @@
+<%# Vue générique pour les pages d'erreur (404 et 500) -%>
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <%- include('partials/head', {
+      title: "Erreur — Peigne et bla-bla",
+      description: "Une erreur est survenue sur le site de Peigne et bla-bla, coiffeuse à domicile."
+    }) %>
+  </head>
+  <body>
+    <!-- ============ NAVIGATION ============ -->
+    <%- include('partials/site-nav') %>
+
+    <!-- ============ ERREUR ============ -->
+    <main>
+      <section class="section section-white">
+        <p class="eyebrow">OUPS</p>
+        <h1 class="h2">Une erreur est survenue</h1>
+        <div class="card">
+          <p><%= message %></p>
+          <a href="/" class="btn-pink">Retour à l'accueil</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+      <%- include('partials/footer') %>
+    </footer>
+  </body>
+</html>

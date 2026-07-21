@@ -3,23 +3,10 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Peigne et bla-bla — Coiffeuse à domicile à Arthez-de-Béarn</title>
-    <meta
-      name="description"
-      content="Alicia, coiffeuse à domicile dans un rayon de 15 km autour d'Arthez-de-Béarn. Coupe, couleur, brushing, à domicile pour toute la famille."
-    />
-    <link rel="icon" href="/img/favicon.ico" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.44.0/dist/tabler-icons.min.css"
-    />
-    <link rel="stylesheet" href="/css/style.css" />
+    <%- include('partials/head', {
+      title: "Peigne et bla-bla — Coiffeuse à domicile à Arthez-de-Béarn",
+      description: "Alicia, coiffeuse à domicile dans un rayon de 15 km autour d'Arthez-de-Béarn. Coupe, couleur, brushing, à domicile pour toute la famille."
+    }) %>
   </head>
   <body>
     <h1 class="sr-only">
@@ -27,28 +14,7 @@
     </h1>
 
     <!-- ============ NAVIGATION ============ -->
-    <div class="site-nav">
-      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
-      <header class="site-header">
-        <nav class="nav-links" aria-label="Navigation principale">
-          <%- include('partials/nav') %>
-        </nav>
-        <label
-          for="nav-toggle"
-          class="nav-toggle-label"
-          aria-label="Ouvrir le menu"
-        >
-          <i class="ti ti-menu-2" aria-hidden="true"></i>
-        </label>
-        <a href="tel:+33759908554" class="btn-pink">
-          <i class="ti ti-phone icon-inline" aria-hidden="true"></i>07 59 90 85
-          54
-        </a>
-      </header>
-      <nav class="nav-mobile-panel" aria-label="Menu mobile">
-        <%- include('partials/nav') %>
-      </nav>
-    </div>
+    <%- include('partials/site-nav') %>
 
     <!-- ============ ACCUEIL ============ -->
     <div id="home">
@@ -93,7 +59,7 @@
         <summary>
           <i class="ti ti-sparkles" aria-hidden="true"></i>Offre du moment
         </summary>
-        <div class="offer-content">Aucune offre en cours.</div>
+        <div class="offer-content">Une nouvelle offre bientôt...</div>
       </details>
 
       <div class="tabs-flow">
@@ -489,16 +455,7 @@
           ></i
         ></a>
       </div>
-      <div class="footer-signature">
-        Peigne et bla-bla · Alicia, coiffeuse à domicile
-      </div>
-
-      <div class="footer-legal">
-        <a href="#">Mentions légales</a>
-        <span>·</span>
-        <a href="#">Politique de confidentialité</a>
-      </div>
-      <div class="footer-credit">Site réalisé par Fabrice Seny-Couty</div>
+      <%- include('partials/footer') %>
     </footer>
   </body>
 </html>

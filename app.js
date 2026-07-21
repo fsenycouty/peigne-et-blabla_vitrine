@@ -3,6 +3,8 @@
 import 'dotenv/config';
 import express from 'express';
 import routerHome from './routers/routerHome.js';
+import { notFound } from './middlewares/notFound.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 // Initialisation de l'application Express
 const app = express();
@@ -16,6 +18,10 @@ app.use(express.static('./public'));
 
 // Utilisation du router pour la page d'accueil
 app.use(routerHome);
+// Cas où la page n'existe pas
+app.use(notFound);
+// Erreur système
+app.use(errorHandler)
 
 // Définition du port à partir de la variable d'environnement ou par défaut à 3000
 const PORT = process.env.PORT || 3000;

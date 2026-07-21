@@ -1,0 +1,23 @@
+<%# Partial : bloc navigation complet (desktop + mobile) -%>
+
+<div class="site-nav">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+  <header class="site-header">
+    <nav class="nav-links" aria-label="Navigation principale">
+      <%- include('nav') %>
+    </nav>
+    <label
+      for="nav-toggle"
+      class="nav-toggle-label"
+      aria-label="Ouvrir le menu"
+    >
+      <i class="ti ti-menu-2" aria-hidden="true"></i>
+    </label>
+    <a href="tel:+33759908554" class="btn-pink">
+      <i class="ti ti-phone icon-inline" aria-hidden="true"></i>07 59 90 85 54
+    </a>
+  </header>
+  <nav class="nav-mobile-panel" aria-label="Menu mobile">
+    <%- include('nav') %>
+  </nav>
+</div>
