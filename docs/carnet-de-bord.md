@@ -118,8 +118,33 @@
   - **Cause** : Sequelize interprète chaque élément du tableau `order` comme un critère de tri séparé — la requête générée triait donc sur deux colonnes distinctes, `position` et une colonne `ASC` inexistante, ce qui aurait provoqué une erreur SQL à l'exécution.
   - **Solution** : `order: [['position', 'ASC']]` — un tableau de tuples `[colonne, direction]`, conforme à la syntaxe attendue.
 
+---
+
+## 21-07-2026
+
+### Objectifs du jour
+
+- Mettre en place la gestion des erreurs (middlewares 404 et 500).
+- Factorisation (partials)
+
+### Travail réalisé
+
+**Développement (gestion des erreurs)** :
+
+- `HomeController.home` : ajout d'un `try/catch` autour de `Picture.findAll()`, avec `console.error` (log complet côté serveur uniquement) puis `next(err)` pour transmettre l'erreur.
+- Écriture de `middlewares/notFound.js` (404, 3 paramètres) et `middlewares/errorHandler.js` (500, 4 paramètres `(err, req, res, next)` requise par Express pour qu'il soit reconnu comme gestionnaire d'erreur).
+- Création de `views/error.ejs`, vue unique réutilisée par les deux middlewares (variable `message`), layout du site conservé (nav + footer allégé).
+- Extraction de 3 partials pour éviter la duplication entre `home.ejs` et `error.ejs` : `views/partials/head.ejs` (title/description passés en variables pour garder un SEO propre par page), `views/partials/site-nav.ejs` (bloc nav desktop + mobile) et `views/partials/site-nav.ejs` (balises du footer communes).
+- Branchement des deux middlewares dans `app.js`, dans l'ordre : `routerHome` → `notFound` → `errorHandler`.
+- Tests manuels : simulation d'un 500 (erreur provoquée temporairement, puis `DATABASE_URL` cassée) et d'un 404 (URL inexistante) — comportement validé dans les deux cas, aucune stack trace ni message SQL exposée au visiteur.
+
+### Difficultés rencontrées / corrigées
+
+- **`Could not find the include file "partials/nav"`** en testant la page d'erreur :
+  - **Cause** : EJS résout les chemins d'`include()` relativement au dossier du fichier qui contient l'appel, pas à la racine `views/`. Le partial `site-nav.ejs`, situé dans `views/partials/`, appelait `include('partials/nav')` — un chemin valable depuis `home.ejs` (à la racine de `views/`) mais qui, depuis `partials/`, pointait vers un inexistant `partials/partials/nav.ejs`.
+  - **Solution** : `include('nav')` dans `site-nav.ejs`, chemin relatif au dossier courant où vit déjà `nav.ejs`.
+
 ### À poursuivre
 
-- Nettoyer `data/dataPictures.json` (fichier de test devenu inutile, encore commité dans le dépôt).
-- Mettre en place la gestion des erreurs (middlewares 404 et 500).
-- Avis Google via l'API Google Places (appel à la demande, cache serveur, aucun stockage en base).
+- Avis Google via l'API Google Places (appel à la demande, cache serveur).
+- Formulaire de contact fonctionnel (validation des entrées — introduction de `HttpError` pour distinguer un 400 d'un 500).
