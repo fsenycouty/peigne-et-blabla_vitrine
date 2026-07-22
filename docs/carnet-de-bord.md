@@ -144,7 +144,39 @@
   - **Cause** : EJS résout les chemins d'`include()` relativement au dossier du fichier qui contient l'appel, pas à la racine `views/`. Le partial `site-nav.ejs`, situé dans `views/partials/`, appelait `include('partials/nav')` — un chemin valable depuis `home.ejs` (à la racine de `views/`) mais qui, depuis `partials/`, pointait vers un inexistant `partials/partials/nav.ejs`.
   - **Solution** : `include('nav')` dans `site-nav.ejs`, chemin relatif au dossier courant où vit déjà `nav.ejs`.
 
+---
+
+## 22-07-2026
+
+### Objectifs du jour
+
+- Concevoir et développer le formulaire de contact (validation des entrées, retour visuel succès/erreur), en repoussant l'envoi réel de l'email à une prochaine session.
+
+### Travail réalisé
+
+**Conception** :
+
+- Découpage : router → middleware de validation (Joi) → contrôleur.
+- Choix du fournisseur d'envoi d'email : Resend (intégration reportée à une prochaine session).
+
+**Développement** :
+
+- `routers/routerContact.js` : route `POST /contact-messages`.
+- `middlewares/validForm.js` : schéma Joi complet — `name` (lettres accentuées, espaces, tirets, apostrophes autorisés via un pattern dédié), `phone` (pattern format français à 10 chiffres), `message` (bornes de longueur). `req.body` remplacé par la valeur validée/nettoyée (`value`) avant de passer la main au contrôleur.
+- `controllers/ContactController.js` : redirige selon le résultat via `?contact=success` ou `?contact=error` dans l'URL (pattern POST/Redirect/GET).
+- `HomeController.home` : lit `req.query.contact` et transmet la valeur brute (`responseForm`) à la vue.
+- `views/home.ejs` : cadre de retour inline (vert succès / rouge erreur, `role="status"` / `role="alert"`).
+- `public/js/contact-form.js` : après soumission, saut instantané vers `#contact`, nettoyage de l'URL (`history.replaceState`), et gestion ciblée de `history.scrollRestoration` pour ne pas rester bloqué sur le formulaire au rechargement, sans altérer le comportement natif de défilement du reste du site.
+
+### Difficultés rencontrées / corrigées
+
+- **Donnée validée non réutilisée** : `schemaForm.validate()` renvoie une valeur nettoyée (`value`), jamais réaffectée à `req.body` — le contrôleur recevait donc la saisie brute, pas la version validée.
+  - **Solution** : `req.body = value` ajouté avant `next()`.
+- **Défilement animé (`scroll-behavior: smooth`) trop lent** à l'arrivée sur la confirmation d'envoi.
+  - **Solution** : script dédié forçant un saut instantané uniquement dans ce cas précis, sans désactiver le confort du défilement fluide pour la navigation normale du site.
+
 ### À poursuivre
 
-- Avis Google via l'API Google Places (appel à la demande, cache serveur).
-- Formulaire de contact fonctionnel (validation des entrées — introduction de `HttpError` pour distinguer un 400 d'un 500).
+- `HttpError` : la distinction succès/erreur se fait pour l'instant par simple redirection, sans code HTTP dédié type 400.
+- Envoi réel de l'email via Resend (service dédié `services/emailService.js`), avec sa propre gestion des erreurs d'envoi (échec → `?contact=error`).
+- Avis Google (API Google Places) — toujours pas commencé.
