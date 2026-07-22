@@ -1,23 +1,24 @@
-// Middleware pour valider le contenu du JSON du formulaire
-
+// Middleware pour valider le contenu du formulaire
 import Joi from "joi";
 
 export function validForm(req, res, next) {
   
-  // Définition du JSON attendu
+  // Définition du schema du body attendu
   const schemaForm = Joi.object({
     name: Joi.string().trim().min(3).max(100).pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ\s'’-]+$/).required(),
     phone: Joi.string().trim().pattern(/^0[1-9]\d{8}$/).required(),
     message: Joi.string().trim().min(1).max(2000).required(),
   });
-  // Validation du JSON body de la requête
+  // Validation du body de la requête
   const { error, value } = schemaForm.validate(req.body);
-
+  
   if (error) {
+    // Le schema n'est pas respecté
+    // Redirige vers  "/" avec req.query.contact = 'error'
     console.error(error.message);
-    // Test : affiche un message dans le navigateur
-    res.send('saisie non valide');
+    return res.redirect('/?contact=error#contact');
   }
-
+  // 'Value' validée et nettoyée par Joi remplace le req.body d'origine
+  req.body = value;
   next();
 }

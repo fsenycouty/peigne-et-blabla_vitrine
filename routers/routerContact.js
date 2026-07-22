@@ -7,6 +7,6 @@ import { validForm } from "../middlewares/validForm.js";
 const router = Router();
 
 // Route pour récupérer les données du formulaire
-router.post("/", validForm, contactController.form);
+router.post("/contact-messages", validForm, contactController.form);
 
 export default router;

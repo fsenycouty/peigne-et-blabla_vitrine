@@ -8,6 +8,9 @@
       description: "Alicia, coiffeuse à domicile dans un rayon de 15 km autour d'Arthez-de-Béarn. Coupe, couleur, brushing, à domicile pour toute la famille."
     }) %>
   </head>
+  
+  <script src="/js/contact-form.js" defer></script>
+
   <body>
     <h1 class="sr-only">
       Peigne et bla-bla — Alicia, coiffeuse à domicile à Arthez-de-Béarn
@@ -381,7 +384,7 @@
           </div>
         </div>
 
-        <form class="contact-form" method="post" action="/">
+        <form class="contact-form" method="post" action="/contact-messages">
           <div class="fields-area">
             <label class="sr-only" for="contact-name">Votre nom</label>
             <input
@@ -403,12 +406,23 @@
             <textarea
               id="contact-message"
               name="message"
-              rows="4"
+              rows="6"
               placeholder="Votre message"
             ></textarea>
           </div>
 
-          <button type="submit" class="btn-pink button-area">Envoyer</button>
+          <div class="button-area button-wrap">
+  <button type="submit" class="btn-pink">Envoyer</button>
+  <% if (responseForm === 'success') { %>
+  <p class="form-feedback form-feedback--success" role="status">
+    Message envoyé !
+  </p>
+  <% } else if (responseForm === 'error') { %>
+  <p class="form-feedback form-feedback--error" role="alert">
+    Informations saisies non valides !
+  </p>
+  <% } %>
+</div>
         </form>
       </div>
     </section>

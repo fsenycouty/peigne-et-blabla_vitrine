@@ -11,7 +11,10 @@ class HomeController {
         order: [["position", "ASC"]],
       });
 
-      res.render("home", { dataPictures });
+      // Récupère le résultat de la soumission au formulaire : 'success', 'error' ou undifined
+      const responseForm = req.query.contact;
+
+      res.render("home", { dataPictures, responseForm });
 
     } catch (err) {
       // Trace complète côté serveur uniquement — jamais renvoyée au visiteur
