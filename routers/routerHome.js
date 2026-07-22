@@ -1,11 +1,11 @@
 // Router pour la page de Peigne et Blabla
 
 import { Router } from "express";
-import HomeController from "../controllers/HomeController.js";
+import homeController from "../controllers/HomeController.js";
 
-const routerHome = Router();
+const router = Router();
 
 // Route pour la page d'accueil
-routerHome.get("/", HomeController.home);
+router.get("/", homeController.home);
 
-export default routerHome;
+export default router;

@@ -3,6 +3,7 @@
 import 'dotenv/config';
 import express from 'express';
 import routerHome from './routers/routerHome.js';
+import routerContact from './routers/routerContact.js';
 import { notFound } from './middlewares/notFound.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 
@@ -16,8 +17,13 @@ app.set('views', './views');
 // Montre les fichiers statiques (css, img) depuis le dossier public
 app.use(express.static('./public'));
 
-// Utilisation du router pour la page d'accueil
+// Poure lire le body d'une requête HTTP de la method="POST"
+app.use(express.urlencoded({ extended: true }));
+
+// Utilisation des router
 app.use(routerHome);
+app.use(routerContact);
+
 // Cas où la page n'existe pas
 app.use(notFound);
 // Erreur système
