@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     history.scrollRestoration = 'manual';
     document.getElementById('contact')?.scrollIntoView({ behavior: 'instant' });
     window.history.replaceState(null, '', window.location.pathname);
-  } else {t.
+  } else {
     history.scrollRestoration = 'auto';
   }
 });
