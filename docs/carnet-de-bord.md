@@ -175,8 +175,34 @@
 - **Défilement animé (`scroll-behavior: smooth`) trop lent** à l'arrivée sur la confirmation d'envoi.
   - **Solution** : script dédié forçant un saut instantané uniquement dans ce cas précis, sans désactiver le confort du défilement fluide pour la navigation normale du site.
 
+---
+
+## 23-07-2026
+
+### Objectifs du jour
+
+- Finaliser l'envoi réel de l'email de contact via Resend.
+- Traiter le risque d'injection HTML dans le champ `message`.
+
+### Travail réalisé
+
+**Développement (Resend)** :
+
+- `utils/email.service.js` : fonction `emailSend(name, phone, message)`, appel à `resend.emails.send()` avec un email HTML affichant nom/téléphone/message, `to` lu depuis `CONTACT_EMAIL_TO`.
+- `ContactController.form` : appel à `emailSend(...)`, redirection `?contact=success` en cas de succès ; toute erreur (validation Joi ou échec Resend) remonte vers l'utilisateur soit par redirection `?contact=error`, soit par la page 500 générique selon son origine.
+- `middlewares/errorHandler.js` : ajout de `console.error(err)` avant le rendu de la page d'erreur, pour garder une trace serveur complète.
+- Choix d'expédition en développement : adresse de test Resend (`onboarding@resend.dev`), `CONTACT_EMAIL_TO` réglé sur l'adresse perso/école.
+
+**Sécurité** :
+
+- Installation de la dépendance `escape-html` pour échapper le champ `message` avant insertion dans le HTML de l'email (contrairement à `name`/`phone`, `message` n'a pas de contrainte de format Joi, donc un visiteur pourrait y injecter du HTML/JS) : `escapeHTML(message).replace(/\n/g, '<br>')`, échappement appliqué avant la conversion des retours à la ligne.
+
+### Difficultés rencontrées / corrigées
+
+- **`await` manquant devant `emailSend(...)`** : le contrôleur redirigeait vers `success` avant que la promesse d'envoi ne soit résolue. Testé avec une clé API Resend invalide : l'erreur remontait bien dans la console (promesse rejetée non gérée) mais après l'envoi de la réponse HTTP — le visiteur voyait « envoyé » alors que l'email n'était pas parti.
+  - **Solution** : ajout de `await` devant l'appel.
+
 ### À poursuivre
 
-- `HttpError` : la distinction succès/erreur se fait pour l'instant par simple redirection, sans code HTTP dédié type 400.
-- Envoi réel de l'email via Resend (service dédié `services/emailService.js`), avec sa propre gestion des erreurs d'envoi (échec → `?contact=error`).
-- Avis Google (API Google Places) — toujours pas commencé.
+- Une fois un nom de domaine acheté et vérifié sur Resend : remplacer `onboarding@resend.dev` par une adresse sur ce domaine, et remettre `CONTACT_EMAIL_TO` à l'adresse réelle d'Alicia.
+- Avis Google (API Google Places).
