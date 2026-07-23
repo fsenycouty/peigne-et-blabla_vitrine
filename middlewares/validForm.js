@@ -5,7 +5,7 @@ export function validForm(req, res, next) {
   
   // Définition du schema du body attendu
   const schemaForm = Joi.object({
-    name: Joi.string().trim().min(3).max(100).pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ\s'’-]+$/).required(),
+    name: Joi.string().trim().min(3).max(100).pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ\s.'’-]+$/).required(),
     phone: Joi.string().trim().pattern(/^0[1-9]\d{8}$/).required(),
     message: Joi.string().trim().min(1).max(2000).required(),
   });
@@ -13,9 +13,9 @@ export function validForm(req, res, next) {
   const { error, value } = schemaForm.validate(req.body);
   
   if (error) {
-    // Le schema n'est pas respecté
-    // Redirige vers  "/" avec req.query.contact = 'error'
+    // Log complet côté serveur
     console.error(error.message);
+    // Redirige vers  "/" avec req.query.contact = 'error'
     return res.redirect('/?contact=error#contact');
   }
   // 'Value' validée et nettoyée par Joi remplace le req.body d'origine

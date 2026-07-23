@@ -5,14 +5,16 @@ class ContactController {
   // Envoie les données du formulaire à Resend
   form = async (req, res, next) => {
     try {
+      // Récupère les données du formulaire
+      // pour les passer en paramètres à la fonction emailSend
       const { name, phone, message } = req.body;
-      emailSend(name, phone, message);
+      await emailSend(name, phone, message);
 
       // Redirige vers '/' à l'endroit du formulaire avec req.query.contact = 'success'
       res.redirect('/?contact=success#contact');
 
     } catch (err) {
-      // Trace complète côté serveur uniquement — jamais renvoyée au visiteur
+      // Log complet côté serveur
       console.error("Erreur lors de la récupération des données du formulaire :", err);
       next(err);
     };
