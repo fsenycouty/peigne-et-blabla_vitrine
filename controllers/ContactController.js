@@ -1,11 +1,12 @@
 // Controller pour le formulaire de contact de Peigne et Blabla
+import { emailSend } from '../utils/email.service.js';
 
 class ContactController {
   // Envoie les données du formulaire à Resend
   form = async (req, res, next) => {
     try {
-      const dataContact = req.body;
-      // TODO : transmettre 'dataContact' à Resend
+      const { name, phone, message } = req.body;
+      emailSend(name, phone, message);
 
       // Redirige vers '/' à l'endroit du formulaire avec req.query.contact = 'success'
       res.redirect('/?contact=success#contact');
