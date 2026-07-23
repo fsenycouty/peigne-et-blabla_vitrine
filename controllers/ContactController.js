@@ -11,6 +11,7 @@ class ContactController {
       res.redirect('/?contact=success#contact');
 
     } catch (err) {
+      // Trace complète côté serveur uniquement — jamais renvoyée au visiteur
       console.error("Erreur lors de la récupération des données du formulaire :", err);
       next(err);
     };
