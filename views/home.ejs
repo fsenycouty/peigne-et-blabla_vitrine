@@ -279,70 +279,38 @@
     <!-- ============ AVIS ============ -->
     <section class="section" id="reviews">
       <p class="eyebrow">TÉMOIGNAGES</p>
-      <h2 class="h2 h2-spaced">Ce qu'elles en disent</h2>
+      <h2 class="h2 h2-spaced">Ils m'ont fait confiance</h2>
 
       <div class="google-badge">
         <div class="google-icon">G</div>
         <div>
           <div class="google-rating-score">
-            4.9 <span class="google-rating-stars">★★★★★</span>
+            <%= dataReviews.totalRating %> <span class="google-rating-stars"><% for (let i=0; i<dataReviews.totalRating; i++) { %>
+            <i class="ti ti-star" aria-hidden="true"></i>
+              <% } %></span>
           </div>
-          <div class="google-rating-count">basé sur 24 avis Google</div>
+          <div class="google-rating-count">basé sur les avis Google</div>
         </div>
-        <a href="#" class="btn-outline google-badge-link">Voir tous les avis</a>
+        <a href="https://www.google.com/search?sa=X&sca_esv=929b5a7cef17ea10&rlz=1C1AJCO_frFR1202FR1202&amc=1&aep=48&hl=fr-FR&sxsrf=APpeQnvIl7vBdJbqVrJcSJaDgxWam6fBnQ:1784984435503&q=Happy+Coiffure+Avis&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxI2NjQxNbQ0NjE1tTA1Mjc3MjY32MDI-IpR2COxoKBSwTk_My2ttChVwbEss3gRKzZRAOC8ZLBGAAAA&rldimm=3145193455852772370&tbm=lcl&ved=2ahUKEwjPtNSZ8e2VAxWTV6QEHQJxPR4Q9fQKegQIPBAG&biw=1536&bih=695&dpr=1.25#lkt=LocalPoiReviews" class="btn-outline google-badge-link">Voir tous les avis</a>
       </div>
 
       <div class="review-grid">
+        <% for (const review of dataReviews.threeRecentReviews) { %>
         <div class="card">
-          <div class="stars">
-            <i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i>
+          <div class="stars"> <%= review.rating %>
+            <% for (let i=0; i<review.rating; i++) { %>
+            <i class="ti ti-star" aria-hidden="true"></i>
+              <% } %>
           </div>
           <div class="review-quote">
-            Un vrai moment de détente sans sortir de chez moi, et un résultat
-            impeccable.
+            <%= review.text %>
           </div>
-          <div class="review-author">— Sophie L.</div>
+          <div class="review-author">— <%= review.name %></div>
           <div class="review-tag">
             <i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google
           </div>
         </div>
-        <div class="card">
-          <div class="stars">
-            <i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i>
-          </div>
-          <div class="review-quote">
-            Ponctuelle, à l'écoute, et mes enfants adorent leurs nouvelles
-            coupes.
-          </div>
-          <div class="review-author">— Marie B.</div>
-          <div class="review-tag">
-            <i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google
-          </div>
-        </div>
-        <div class="card">
-          <div class="stars">
-            <i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i
-            ><i class="ti ti-star" aria-hidden="true"></i>
-          </div>
-          <div class="review-quote">
-            Le balayage est magnifique, je recommande les yeux fermés.
-          </div>
-          <div class="review-author">— Claire T.</div>
-          <div class="review-tag">
-            <i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google
-          </div>
-        </div>
+        <% } %>
       </div>
     </section>
 

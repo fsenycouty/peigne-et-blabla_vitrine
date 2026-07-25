@@ -65,14 +65,14 @@ export async function getReviews() {
     const review = {
       rating: reviews[i].rating,
       text: reviews[i].originalText.text,
-      name: reviews[i].authorAttribution.displayName,
+      name: reviews[i].authorAttribution.displayName.toLowerCase(),
     };
 
     threeRecentReviews.push(review);
   }
 
   const dataReviews = { totalRating, threeRecentReviews };
-
+  
   // Réinitialise pour le compteur
   timestamp = Date.now();
 
