@@ -284,5 +284,5 @@
 - Réserver le nom de domaine "www.peigneetblabla.fr" sur Gandi avec la cliente et souscrire à l'abonnement environ 8€/mois pour l'hébergement sur Render.
 - Créer un log sur Resend avec le mail de peigneetblabla@gmail.com :
   - récupérer le RESEND_API_KEY à remplacer dans le .env
-  - modifier l'adresse CONTACT_EMAIL_TO avec celui de peigneetblabla@gmail.com
+  - modifier l'adresse CONTACT_EMAIL_TO du .env avec celui de peigneetblabla@gmail.com
   - paramétrer Resend avec le vrai nom de domaine
