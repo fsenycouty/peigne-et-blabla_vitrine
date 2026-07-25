@@ -83,5 +83,3 @@ export async function getReviews() {
 
   return (reviewStocked = dataReviews);
 }
-
-// getReviews()

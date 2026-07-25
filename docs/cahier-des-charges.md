@@ -37,8 +37,8 @@ Le site permet de :
 - [x] Maquette / conception visuelle
 - [x] Intégration HTML/CSS statique
 - [x] Conception des données (dictionnaire de données, MCD, MLD, MPD)
-- [ ] Mise en place technique (Node.js, Express, EJS)
-- [ ] Développement des fonctionnalités
+- [x] Mise en place technique (Node.js, Express, EJS)
+- [x] Développement des fonctionnalités
 - [ ] Tests
 - [ ] Aspects légaux (mentions légales, politique de confidentialité)
 - [ ] Déploiement en ligne
