@@ -33,7 +33,7 @@ export async function getReviews() {
       headers: {
         "Content-Type": "application/json",
         "X-Goog-Api-Key": process.env.GOOGLE_API_KEY,
-        "X-Goog-FieldMask": "reviews,rating",
+        "X-Goog-FieldMask": "reviews,rating,googleMapsUri",
       },
     },
   );
@@ -53,9 +53,11 @@ export async function getReviews() {
 
   // Réponse de l'API
   const result = await response.json();
+  // Le lien vers la fiche Google "Peigne et Blabla"
+  const googleReviewsUrl = result.googleMapsUri;
+  // La moyenne des notes des avis Google
   const totalRating = result.rating;
-  // Arrondi la note au demi point pour l'affichage des étoiles
-  const ratingForStars = Math.round(totalRating * 2) / 2;
+  // Les données des 5 avis Google (classé par pertinence)
   const reviews = result.reviews;
   // Trie les avis du plus récent au plus ancien par rapport à publishtime
   reviews.sort((a, b) => new Date(b.publishTime) - new Date(a.publishTime));
@@ -73,10 +75,13 @@ export async function getReviews() {
     threeRecentReviews.push(review);
   }
 
-  const dataReviews = { totalRating, ratingForStars, threeRecentReviews };
+  // Données prêtes à envoyer pour HomeController
+  const dataReviews = { totalRating, threeRecentReviews, googleReviewsUrl };
   
   // Réinitialise pour le compteur
   timestamp = Date.now();
 
   return (reviewStocked = dataReviews);
 }
+
+// getReviews()
