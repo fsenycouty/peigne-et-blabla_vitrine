@@ -313,7 +313,7 @@ label.tab{
   color:var(--google-blue); flex-shrink:0;
 }
 .google-rating-score{ font-weight:700; font-size:15px; }
-.google-rating-stars{ color:var(--star-gold); font-size:12px; }
+.google-rating-stars{ color:var(--star-gold); font-size:18px; }
 .google-rating-count{ font-size:11px; color:var(--text-light); }
 .google-badge-link{ margin-left:auto; font-size:11px; padding:7px 14px; }
 
