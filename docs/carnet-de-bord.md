@@ -244,8 +244,45 @@
   - **Décision** : acceptée telle quelle, cohérente avec le cahier des charges — à signaler à Alicia.
 - **Fiche Google Business d'Alicia non trouvée en ligne** lors de la première recherche : elle ne l'avait pas encore créée. Créée le 24-07, vérification Google en cours (délai variable, jusqu'à 14 jours pour un courrier postal) — développement poursuivi en attendant avec l'établissement de test (Happy Coiffure), Place ID clairement marqué comme temporaire dans le `.env`.
 
+---
+
+## 25-07-2026
+
+### Objectifs du jour
+
+- Brancher le service `review.service.js` dans `HomeController` et l'afficher dans `home.ejs`.
+- Afficher la moyenne des notes et un lien stable vers la fiche d'avis Google.
+- Premier test de déploiement sur Render.
+
+### Travail réalisé
+
+**Intégration** :
+
+- `HomeController.home` : appel à `getReviews()`, résultat transmis à la vue via `res.render("home", { ..., dataReviews })`.
+- `views/home.ejs` : nouvelle section `#reviews` — badge avec la moyenne et le lien "Voir tous les avis", grille de cartes pour les 3 avis les plus récents (note, texte, auteur).
+- Moyenne des notes affichée en chiffre, avec une icône étoile à côté (`<span class="google-rating-stars">★</span>`).
+
+**Déploiement (test Render)** :
+
+- Six variables identifiées nécessaires ajoutées dans Render (`process.env.*`) : `PORT`, `DATABASE_URL`, `RESEND_API_KEY`, `CONTACT_EMAIL_TO`, `GOOGLE_API_KEY`, `PLACE_ID`.
+- `.env.example` mis à jour avec les clés manquantes (`CONTACT_EMAIL_TO`, `GOOGLE_API_KEY`, `PLACE_ID`).
+
+**Lien vers les avis Google** :
+
+- Dans `review.service.js` utilisation du champ `googleMapsUri` renvoyé directement par l'API (ajouté au `X-Goog-FieldMask`).
+
+### Difficultés rencontrées / corrigées
+
+- **`Error: Missing API key` au démarrage sur Render** :
+  - **Cause** : `.env` exclu de Git (comme voulu), donc absent sur l'environnement de déploiement.
+  - **Solution** : variables recopiées manuellement dans les paramètres d'environnement de Render.
+
 ### À poursuivre
 
-- Intégration : `getReviews()` n'est pour l'instant appelé nulle part — reste à le brancher dans `HomeController` et à afficher le résultat dans `home.ejs`.
-- Poser un quota de requêtes/jour sur la clé API dans Google Cloud (filet de sécurité contre un emballement de coûts, en l'absence de restriction par IP).
-- Remplacer le Place ID de test (Happy Coiffure) par celui d'Alicia une fois sa fiche Google Business vérifiée.
+- Poser un quota de requêtes/jour sur la clé API dans Google Cloud (filet de sécurité, en l'absence de restriction par IP).
+- Remplacer le Place ID de test par celui d'Alicia une fois sa fiche Google Business vérifiée.
+- Réserver le nom de domaine "www.peigneetblabla.fr" sur Gandi avec la cliente et souscrire à l'abonnement environ 8€/mois pour l'hébergement sur Render.
+- Créer un log sur Resend avec le mail de peigneetblabla@gmail.com :
+  - récupérer le RESEND_API_KEY à remplacer dans le .env
+  - modifier l'adresse CONTACT_EMAIL_TO avec celui de peigneetblabla@gmail.com
+  - paramétrer Resend avec le vrai nom de domaine
