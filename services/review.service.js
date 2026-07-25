@@ -54,6 +54,8 @@ export async function getReviews() {
   // Réponse de l'API
   const result = await response.json();
   const totalRating = result.rating;
+  // Arrondi la note au demi point pour l'affichage des étoiles
+  const ratingForStars = Math.round(totalRating * 2) / 2;
   const reviews = result.reviews;
   // Trie les avis du plus récent au plus ancien par rapport à publishtime
   reviews.sort((a, b) => new Date(b.publishTime) - new Date(a.publishTime));
@@ -71,7 +73,7 @@ export async function getReviews() {
     threeRecentReviews.push(review);
   }
 
-  const dataReviews = { totalRating, threeRecentReviews };
+  const dataReviews = { totalRating, ratingForStars, threeRecentReviews };
   
   // Réinitialise pour le compteur
   timestamp = Date.now();

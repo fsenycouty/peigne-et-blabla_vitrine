@@ -14,7 +14,6 @@ class HomeController {
 
       // Récupère les avis Google
       const dataReviews = await getReviews();
-      console.log(dataReviews);
 
       // Récupère le résultat de la soumission au formulaire : 'success', 'error' ou undifined
       const responseForm = req.query.contact;
