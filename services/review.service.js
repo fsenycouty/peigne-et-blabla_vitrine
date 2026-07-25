@@ -1,6 +1,7 @@
+// Service : envoi de la requête à l'API et récupère les données Avis Google
 import "dotenv/config";
 
-// Durée pour lancer la nouvelle requete à l'API Google (au bout de 24h)
+// Durée pour lancer la nouvelle requete à l'API (au bout de 24h)
 const reloadTime = 24 * 60 * 60 * 1000;
 // Stockage des avis pendant 24h
 let reviewStocked = null;
@@ -17,55 +18,63 @@ function countDownValid() {
   return false;
 }
 
-// Fonction d'appel à l'API Google pour récupérer les avis client
+// Fonction d'appel à l'API pour récupérer les avis client
 export async function getReviews() {
+  if (countDownValid()) {
+    // Le timer décompte toujours : renvoie les avis en mémoire
+    return reviewStocked;
+  }
 
-    if (countDownValid()) {
-      // Le timer décompte toujours : renvoie les avis en mémoire
-      return reviewStocked;
-    }
-
-    // Requete méthode GET à l'API
-    const response = await fetch(
-      `https://places.googleapis.com/v1/places/${process.env.PLACE_ID}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Goog-Api-Key": process.env.GOOGLE_API_KEY,
-          "X-Goog-FieldMask": "reviews,rating",
-        },
+  // Requete méthode GET à l'API
+  const response = await fetch(
+    `https://places.googleapis.com/v1/places/${process.env.PLACE_ID}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": process.env.GOOGLE_API_KEY,
+        "X-Goog-FieldMask": "reviews,rating",
       },
-    );
+    },
+  );
 
-    // Réponse de l'API
-    const result = await response.json();
-    const reviews = result.reviews;
-    const totalRating = result.rating;
-
-    // Récupère les données des 3 derniers avis de reviews : la note, le texte et le nom du client
-    const threeRecentReviews = [];
-
-    for (let i = 0; i < 3; i++) {
-      const review = {
-        rating: reviews[i].rating,
-        text: reviews[i].originalText.text,
-        name: reviews[i].authorAttribution.displayName,
-      };
-
-      threeRecentReviews.push(review);
+  if (!response.ok) {
+    if (reviewStocked === null) {
+      throw new Error(
+        `Échec de récupération des avis Google : ${response.status}`,
+      );
     }
+    console.error(
+      "Echec de la récupération, charge les avis stockés en cache : ",
+      response.status,
+    );
+    return reviewStocked;
+  }
 
-    const dataReviews = {totalRating, threeRecentReviews};
-  
-    // Réinitialise pour le compteur
-    timestamp = Date.now();
+  // Réponse de l'API
+  const result = await response.json();
+  const totalRating = result.rating;
+  const reviews = result.reviews;
+  // Trie les avis du plus récent au plus ancien par rapport à publishtime
+  reviews.sort((a, b) => new Date(b.publishTime) - new Date(a.publishTime));
 
-    // Vérification des données récupérées et triées
-    console.log(dataReviews)
-    
-    return reviewStocked = dataReviews;
+  // Récupère les données des 3 derniers avis de reviews : la note, le texte et le nom du client
+  const threeRecentReviews = [];
+
+  for (let i = 0; i < 3; i++) {
+    const review = {
+      rating: reviews[i].rating,
+      text: reviews[i].originalText.text,
+      name: reviews[i].authorAttribution.displayName,
+    };
+
+    threeRecentReviews.push(review);
+  }
+
+  const dataReviews = { totalRating, threeRecentReviews };
+
+  // Réinitialise pour le compteur
+  timestamp = Date.now();
+
+  return (reviewStocked = dataReviews);
 }
-
-// Pour test avec node services/review.service.js
-getReviews();
