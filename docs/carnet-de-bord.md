@@ -271,6 +271,10 @@
 
 - Dans `review.service.js` utilisation du champ `googleMapsUri` renvoyé directement par l'API (ajouté au `X-Goog-FieldMask`).
 
+**Réglage du quota sur Google Cloud** :
+
+- Poser un quota de requêtes/jour sur la clé API dans Google Cloud (filet de sécurité, en l'absence de restriction par IP).
+
 ### Difficultés rencontrées / corrigées
 
 - **`Error: Missing API key` au démarrage sur Render** :
@@ -279,7 +283,6 @@
 
 ### À poursuivre
 
-- Poser un quota de requêtes/jour sur la clé API dans Google Cloud (filet de sécurité, en l'absence de restriction par IP).
 - Remplacer le Place ID de test par celui d'Alicia une fois sa fiche Google Business vérifiée.
 - Réserver le nom de domaine "www.peigneetblabla.fr" sur Gandi avec la cliente et souscrire à l'abonnement environ 8€/mois pour l'hébergement sur Render.
 - Créer un log sur Resend avec le mail de peigneetblabla@gmail.com :
