@@ -1,5 +1,5 @@
 // Controller pour le formulaire de contact de Peigne et Blabla
-import { emailSend } from '../utils/email.service.js';
+import { emailSend } from '../services/email.service.js';
 
 class ContactController {
   // Envoie les données du formulaire à Resend
