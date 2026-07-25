@@ -202,7 +202,50 @@
 - **`await` manquant devant `emailSend(...)`** : le contrôleur redirigeait vers `success` avant que la promesse d'envoi ne soit résolue. Testé avec une clé API Resend invalide : l'erreur remontait bien dans la console (promesse rejetée non gérée) mais après l'envoi de la réponse HTTP — le visiteur voyait « envoyé » alors que l'email n'était pas parti.
   - **Solution** : ajout de `await` devant l'appel.
 
+---
+
+## 24-07-2026
+
+### Objectifs du jour
+
+- Configuration Google Cloud.
+- développement et test du service de récupération des avis.
+
+### Travail réalisé
+
+**Configuration Google Cloud** :
+
+- Création du projet Google Cloud, activation de l'API **Places API (New)**, création d'une clé API.
+- Facturation : compte lié à l'offre d'essai sans frais (263 €, 90 jours) — confirmée compatible avec les seuils d'usage gratuits de Google Maps Platform, pas de passage à un compte payant nécessaire à ce stade.
+- Choix de sécurité sur la clé API : restriction par API ("Places API (New)" uniquement).
+- Filet de sécurité à poser : un quota de requêtes/jour côté Google Cloud.
+- Recherche du Place ID via l'outil Place ID Finder (Maps JavaScript API).
+
+**Développement** :
+
+- Renommage du dossier `utils/` en `services/`.
+- Écriture du service de récupération des avis : `services/review.service.js`.
+- Cache en mémoire côté serveur : deux variables de module non exportées (`reviewStocked`, `timestamp`) et une fonction `countDownValid()` comparant le temps écoulé à un TTL de 24h (`reloadTime`).
+- Appel `fetch` en `GET` vers `https://places.googleapis.com/v1/places/{PLACE_ID}` (headers `X-Goog-Api-Key` et `X-Goog-FieldMask: reviews,rating`), puis nettoyage de la réponse pour ne garder que `rating`, `originalText.text` (texte d'avis en français) et `authorAttribution.displayName`.
+- Tri des avis par `publishTime` décroissant et ne garder que les 3 plus récents (`threeRecentReviews`).
+- Gestion d'erreur construite autour de `response.ok` : si absence de cache, l'erreur est relancée avec un message explicite (remonte jusqu'à la page 500) ; si un cache existe déjà, les avis périmés sont renvoyés en dépannage avec une trace `console.error`.
+- Forme de retour : objet `{ totalRating, threeRecentReviews }`.
+
+### Difficultés rencontrées / corrigées
+
+- **Erreur `403 PERMISSION_DENIED` ("Requests to this API ... are blocked")** au premier test :
+  - **Cause précise** — le module sélectionné dans Google Cloud était Place API au lieu de Places API (New).
+- **Erreur `400 INVALID_ARGUMENT`** ensuite :
+  - **Cause** : espace en trop dans le header `X-Goog-FieldMask` (`"reviews, rating"` au lieu de `"reviews,rating"`).
+- **Tableau `reviews` pas trié par date** : constaté sur les données réelles de test (Google classe par pertinence et non par chronologie).
+  - **Solution** : tri explicite par `publishTime` ajouté avant de découper les 3 avis à afficher.
+- **Seulement 5 avis récupérés sur les 13 existants** sur la fiche de l'établissement de test (Happy Coiffure) :
+  - **Cause** : limite native de l'API Place Details, non contournable officiellement (5 avis maximum, sélectionnés par un algorithme de pertinence interne à Google).
+  - **Décision** : acceptée telle quelle, cohérente avec le cahier des charges — à signaler à Alicia.
+- **Fiche Google Business d'Alicia non trouvée en ligne** lors de la première recherche : elle ne l'avait pas encore créée. Créée le 24-07, vérification Google en cours (délai variable, jusqu'à 14 jours pour un courrier postal) — développement poursuivi en attendant avec l'établissement de test (Happy Coiffure), Place ID clairement marqué comme temporaire dans le `.env`.
+
 ### À poursuivre
 
-- Une fois un nom de domaine acheté et vérifié sur Resend : remplacer `onboarding@resend.dev` par une adresse sur ce domaine, et remettre `CONTACT_EMAIL_TO` à l'adresse réelle d'Alicia.
-- Avis Google (API Google Places).
+- Intégration : `getReviews()` n'est pour l'instant appelé nulle part — reste à le brancher dans `HomeController` et à afficher le résultat dans `home.ejs`.
+- Poser un quota de requêtes/jour sur la clé API dans Google Cloud (filet de sécurité contre un emballement de coûts, en l'absence de restriction par IP).
+- Remplacer le Place ID de test (Happy Coiffure) par celui d'Alicia une fois sa fiche Google Business vérifiée.
