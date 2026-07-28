@@ -52,13 +52,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   background:var(--pink); color:var(--pink-dark); border:none;
   border-radius:24px; padding:10px 18px; font-size:13px; font-weight:600;
   cursor:pointer; display:inline-block;
+  transition:background-color .15s ease;
 }
 .btn-outline{
   background:#DCE3D9; border:1.5px solid var(--sage);
   color:var(--sage-dark); border-radius:24px; padding:9px 18px;
   font-size:13px; font-weight:600; cursor:pointer;
   text-decoration:none; display:inline-block;
+  transition:background-color .15s ease;
 }
+
+/* Effet de survol (souris) et de focus (clavier) sur les boutons du site */
+/* Corrigé : fond var(--rose-deep) + texte var(--pink-dark) ne passait pas le contraste WCAG AA
+   (ratio 3.53:1, sous le seuil 4.5:1). Même stratégie que .btn-outline : on bascule sur la teinte
+   "-dark" en fond avec du texte blanc (ratio 9.24:1). */
+.btn-pink:hover, .btn-pink:focus-visible{ background:var(--pink-dark); color:#fff; }
+/* Fond identique à var(--sage-light) corrigé : #DCE3D9 (repos) == var(--sage-light), donc le survol
+   précédent ne produisait aucun changement visible. On reprend ici le même couple fond/texte que
+   .tab-radio:checked (var(--sage-dark) + blanc), qui passe le contraste WCAG AA (ratio 6.83:1). */
+.btn-outline:hover, .btn-outline:focus-visible{ background:var(--sage-dark); color:#fff; border-color:var(--sage-dark); }
 
 /* --- Cartes --- */
 .card{
@@ -92,7 +104,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display:none; gap:20px; font-size:13px; color:var(--text-muted); font-weight:500;
   flex-wrap:wrap; align-items:center;
 }
-.nav-links a{ padding:4px 0; }
+.nav-links a{ padding:4px 0; transition:transform .15s ease; }
+/* Léger agrandissement au survol/focus clavier — transform n'affecte pas la mise en page des voisins */
+.nav-links a:hover, .nav-links a:focus-visible{ transform:scale(1.08); }
 
 /* checkbox caché = interrupteur du menu mobile (CSS pur, sans JS) */
 .nav-toggle-input{ position:absolute; opacity:0; pointer-events:none; }
@@ -112,8 +126,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .nav-mobile-panel a{
   padding:10px 4px; font-size:14px; color:var(--text-muted); font-weight:500;
-  border-bottom:1px solid var(--border);
+  border-bottom:1px solid var(--border); transition:transform .15s ease;
 }
+.nav-mobile-panel a:hover, .nav-mobile-panel a:focus-visible{ transform:scale(1.05); }
 .nav-toggle-input:checked ~ .nav-mobile-panel{ display:flex; }
 
 @media (min-width:760px){
@@ -175,8 +190,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .offer-details summary{
   list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
   background:#F8E3E5; color:var(--pink-dark); border-radius:20px; padding:6px 14px;
-  font-size:11.5px; font-weight:600;
+  font-size:11.5px; font-weight:600; transition:background-color .15s ease, color .15s ease;
 }
+/* Même traitement que .btn-pink:hover pour rester cohérent avec le reste des éléments cliquables */
+.offer-details summary:hover, .offer-details summary:focus-visible{ background:var(--pink-dark); color:#fff; }
 .offer-details summary::-webkit-details-marker{ display:none; }
 .offer-details summary::after{ content:'▾'; margin-left:2px; font-size:9px; }
 .offer-details[open] summary::after{ content:'▴'; }
@@ -184,6 +201,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin-top:8px; background:#fff; border:1px solid var(--border); border-radius:10px;
   padding:12px 14px; font-size:12.5px; color:var(--text-muted); max-width:320px;
 }
+
+/* Lightbox du flyer "Offre du moment", en CSS pur (case à cocher cachée + label), */
+/* même principe que .nav-toggle-input pour le menu mobile. */
+.lightbox-toggle{ position:absolute; opacity:0; pointer-events:none; }
+.offer-flyer-trigger{ display:inline-block; margin-top:8px; cursor:zoom-in; }
+.offer-flyer-thumb{ max-width:200px; border-radius:8px; }
+.lightbox-overlay{
+  display:none;
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.85);
+  align-items:center; justify-content:center;
+  z-index:100;
+}
+.lightbox-toggle:checked ~ .lightbox-overlay{ display:flex; }
+.lightbox-close{ cursor:zoom-out; }
+.lightbox-image{ max-width:90vw; max-height:90vh; border-radius:8px; }
+/* Focus clavier visible sur le déclencheur, cohérent avec le reste du site */
+.lightbox-toggle:focus-visible + .offer-flyer-trigger{
+  outline:2px solid var(--sage-dark); outline-offset:2px;
+}
+
 .tabs-flow{ margin:14px 0 0; }
 .tabs-buttons{ display:flex; flex-wrap:wrap; gap:10px; }
 .tab-radio{ position:absolute; opacity:0; pointer-events:none; }
@@ -219,6 +257,11 @@ label.tab{
   color:var(--sage); font-weight:700; font-size:11px; text-transform:uppercase;
   letter-spacing:.04em; padding-top:16px; border-bottom:none;
 }
+
+/* Effet de survol des lignes de prestations */
+.price-table tr{ transition:background-color .15s ease; }
+/* :not(:has(th)) exclut la ligne d'en-tête (Forfait, etc.) du survol, qui ne doit pas se confondre avec une ligne de prix */
+.price-table tr:hover:not(:has(th, .cat)){ background:var(--sage-light); }
 
 /* =========================================================
    Galerie
@@ -313,7 +356,7 @@ label.tab{
   color:var(--google-blue); flex-shrink:0;
 }
 .google-rating-score{ font-weight:700; font-size:15px; }
-.google-rating-stars{ color:var(--star-gold); font-size:18px; }
+.google-rating-stars{ color:var(--star-gold); font-size:12px; }
 .google-rating-count{ font-size:11px; color:var(--text-light); }
 .google-badge-link{ margin-left:auto; font-size:11px; padding:7px 14px; }
 
@@ -404,3 +447,16 @@ label.tab{
 }
 .footer-legal a{ text-decoration:underline; }
 .footer-credit{ font-size:10px; color:var(--text-muted); margin-top:8px; position:relative; z-index:1; }
+
+/* =========================================================
+   Retour en haut
+   ========================================================= */
+.back-to-top{
+  position:fixed; right:12px; bottom:16px; z-index:40;
+  display:flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:50%;
+  background:var(--sage); color:#fff; font-size:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+  transition:background-color .15s ease;
+}
+.back-to-top:hover, .back-to-top:focus-visible{ background:var(--sage-dark); }

@@ -60,7 +60,30 @@
         <summary>
           <i class="ti ti-sparkles" aria-hidden="true"></i>Offre du moment
         </summary>
-        <div class="offer-content">Une nouvelle offre bientôt...</div>
+        <div class="offer-content">
+          <% if (currentOffer) { %>
+            <!-- Lightbox en CSS pur : même principe que le menu mobile (case à cocher cachée + label déclencheur) -->
+            <input type="checkbox" id="offer-lightbox-toggle" class="lightbox-toggle" />
+            <label
+              for="offer-lightbox-toggle"
+              class="offer-flyer-trigger"
+              aria-label="Agrandir le flyer de l'offre du moment"
+            >
+              <img src="<%= currentOffer.imageUrl %>" alt="<%= currentOffer.imageAlt %>" class="offer-flyer-thumb" />
+            </label>
+          <div class="lightbox-overlay">
+            <label
+              for="offer-lightbox-toggle"
+              class="lightbox-close"
+              aria-label="Fermer l'image agrandie"
+            >
+              <img src="<%= currentOffer.imageUrl %>" alt="<%= currentOffer.imageAlt %>" class="lightbox-image" />
+            </label>
+          </div>
+            <% } else { %>
+               Une nouvelle offre bientôt...
+            <% } %>
+        </div>
       </details>
 
       <div class="tabs-flow">
@@ -433,6 +456,11 @@
       </div>
       <%- include('partials/footer') %>
     </footer>
+
+    <!-- ============ RETOUR EN HAUT ============ -->
+    <a href="#home" class="back-to-top" aria-label="Remonter en haut de la page">
+      <i class="ti ti-arrow-up" aria-hidden="true"></i>
+    </a>
 
      <script src="/js/contact-form.js" defer></script>
   </body>
