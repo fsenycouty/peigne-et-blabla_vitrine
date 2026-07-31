@@ -17,6 +17,6 @@ export async function emailSend(name, phone, message) {
 
   if (error) {
     // Si l'envoi a échoué, déclenche une instance de Error.
-    throw new Error(`Échec de l'envoi via Resend : ${error.message}`);
+    throw new Error(`Échec de l'envoi via Resend => ${error.message}`);
   }
 }

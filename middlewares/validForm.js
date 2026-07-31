@@ -14,7 +14,7 @@ export function validForm(req, res, next) {
   
   if (error) {
     // Log complet côté serveur
-    console.error(error.message);
+    console.error('Informations saisies non valides :', error.message);
     // Redirige vers  "/" avec req.query.contact = 'error'
     return res.redirect('/?contact=error#contact');
   }

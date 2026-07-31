@@ -395,17 +395,21 @@
           </div>
 
           <div class="button-area button-wrap">
-  <button type="submit" class="btn-pink">Envoyer</button>
-  <% if (responseForm === 'success') { %>
-  <p class="form-feedback form-feedback--success" role="status">
-    Message envoyé !
-  </p>
-  <% } else if (responseForm === 'error') { %>
-  <p class="form-feedback form-feedback--error" role="alert">
-    Informations saisies non valides !
-  </p>
-  <% } %>
-</div>
+            <button type="submit" class="btn-pink">Envoyer</button>
+            <% if (responseForm === 'success') { %>
+            <p class="form-feedback form-feedback--success" role="status">
+              Message envoyé !
+            </p>
+            <% } else if (responseForm === 'error') { %>
+            <p class="form-feedback form-feedback--error" role="alert">
+              Informations saisies non valides !
+            </p>
+            <% } else if (responseForm === 'error-email') { %>
+            <p class="form-feedback form-feedback--error" role="alert">
+              Désolé, une erreur est survenue durant l'envoi !
+            </p>
+            <% } %>
+        </div>
         </form>
       </div>
     </section>

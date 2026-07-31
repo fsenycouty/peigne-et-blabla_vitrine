@@ -15,8 +15,8 @@ class ContactController {
 
     } catch (err) {
       // Log complet côté serveur
-      console.error("Erreur lors de la récupération des données du formulaire :", err);
-      next(err);
+      console.error(err);
+      res.redirect('/?contact=error-email#contact');
     };
   };
 }
