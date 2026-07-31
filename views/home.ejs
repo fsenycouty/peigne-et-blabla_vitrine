@@ -71,15 +71,13 @@
             >
               <img src="<%= currentOffer.imageUrl %>" alt="<%= currentOffer.imageAlt %>" class="offer-flyer-thumb" />
             </label>
-          <div class="lightbox-overlay">
             <label
               for="offer-lightbox-toggle"
-              class="lightbox-close"
+              class="lightbox-overlay lightbox-close"
               aria-label="Fermer l'image agrandie"
             >
               <img src="<%= currentOffer.imageUrl %>" alt="<%= currentOffer.imageAlt %>" class="lightbox-image" />
             </label>
-          </div>
             <% } else { %>
                Une nouvelle offre bientôt...
             <% } %>
