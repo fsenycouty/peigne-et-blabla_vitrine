@@ -49,8 +49,8 @@
 - Isolation des dossiers `migrations/` et `seeders/` en CommonJS (fichier `package.json` dédié dans chacun) pour cohabiter avec le `"type": "module"` du reste du projet.
 - Configuration de `config/config.json` avec `use_env_variable: "DATABASE_URL"` : la CLI lit la connexion Supabase depuis l'environnement, aucun identifiant en dur.
 - Écriture de la connexion Sequelize applicative dans `database/sequelize-client.js`.
-- Écriture des modèles `Picture`, `BeforeAfterPicture` et le fichier d'associations `index` (`models/`).
-- Écriture et application de la migration `create-pictures` (traduction du MPD validé) : tables `pictures` et beforeAfterPictures créée avec succès dans Supabase, vérifiée dans le Table Editor.
+- Écriture du modèle `Picture` (`models/Picture.js`).
+- Écriture et application de la migration `create-pictures` (traduction du MPD validé) : table `pictures` créée avec succès dans Supabase, vérifiée dans le Table Editor.
 - Installation de `dotenv-cli` pour permettre à `sequelize-cli` de lire le `.env` lors des commandes (`npx dotenv sequelize-cli db:migrate`).
 - Création de la structure MVC complète : `routers/`, `controllers/`, `models/`, `views/`, `middlewares/`.
 - Configuration minimale du serveur Express (`app.js`) avec une route et un contrôleur de test (« Hello, welcome to the home page! ») pour valider la chaîne routeur → contrôleur → réponse.
@@ -280,6 +280,38 @@
 - **`Error: Missing API key` au démarrage sur Render** :
   - **Cause** : `.env` exclu de Git (comme voulu), donc absent sur l'environnement de déploiement.
   - **Solution** : variables recopiées manuellement dans les paramètres d'environnement de Render.
+
+---
+
+## 31-07-2026
+
+### Objectifs du jour
+
+- Revoir le modèle de données de la galerie suite à un retour critique, et répercuter ce changement sur les migrations, modèles, associations, contrôleur et vue déjà en place.
+
+### Travail réalisé
+
+**Conception des données (révision du modèle)** :
+
+- Retour critique reçu sur le modèle `PICTURE` initial (une ligne portant à la fois `beforeUrl`/`afterUrl` et leurs `publicId`) : une ligne de table doit représenter une seule chose, or une ligne y représentait deux photos en même temps.
+- Refonte du MCD : entité `PICTURE` (id, url) générique, entité `BEFORE_AFTER_PICTURE` (id, position) reliée à `PICTURE` par deux associations à rôles distincts (`CONCERNS_BEFORE`, `CONCERNS_AFTER`).
+- MLD dérivé : les deux clés étrangères (`beforePictureId`, `afterPictureId`) portées par `beforeAfterPicture` (côté cardinalité `1,1`), non par `picture` (côté `0,1`).
+- MPD (SQL) mis à jour en conséquence : tables `pictures` (id, url) et `before_after_pictures` (id, position, before_picture_id, after_picture_id, `ON DELETE RESTRICT`).
+
+**Mise en place technique / Développement** :
+
+- Nouvelles migrations `create-picture` et `create-before-after-picture` écrites et exécutées avec succès sur Supabase.
+- Modèles `Picture.js` et `BeforeAfterPicture.js`.
+- Fichier d'associations : alias `before`/`after` dupliqués entre `belongsTo` et `hasOne`, avec `foreignKey` — les deux sens de la relation doivent toujours porter le même `foreignKey`.
+- `HomeController.home` mis à jour : `Picture.findAll(...)` remplacé par `BeforeAfterPicture.findAll({ include: [{ model: Picture, as: "before" }, { model: Picture, as: "after" }], order: [["position", "ASC"]] })`.
+- Données ré-saisies manuellement dans Supabase selon la nouvelle structure : une ligne par photo dans `pictures`, puis une ligne dans `before_after_pictures` référençant les deux `id`.
+- `views/home.ejs` : `picture.before.url`/`picture.after.url`; attributs `alt` rendus uniques par paire en réutilisant `picture.position` (`alt="Photo avant, coiffure n°<%= picture.position %>"`).
+
+### Difficultés rencontrées / corrigées
+
+- **Erreur Mocodo `Err.9 - impossible de calculer un plongement planaire`** en générant le schéma visuel du nouveau MCD :
+  - **Cause** : deux associations parallèles entre les deux mêmes entités (`CONCERNS_BEFORE`/`CONCERNS_AFTER`) mettent en difficulté l'algorithme de placement automatique par défaut de Mocodo.
+  - **Solution** : changer d'algorithme d'arrangement (`--arrange=ga` ou `--arrange=lp` plutôt que `bb`, le mode exact par défaut). Le texte Mocodo restait valide indépendamment de ce problème de rendu.
 
 ### À poursuivre
 

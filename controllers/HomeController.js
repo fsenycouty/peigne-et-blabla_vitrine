@@ -1,5 +1,5 @@
 // Controller pour la page d'accueil de Peigne et Blabla
-import Picture from "../models/Picture.js";
+import { BeforeAfterPicture, Picture } from '../models/index.js'
 import { getReviews } from "../services/review.service.js";
 import { getCurrentOffer } from "../services/offer.service.js";
 
@@ -11,7 +11,11 @@ class HomeController {
       const currentOffer = await getCurrentOffer();
 
       // Récupère les infos des photos stockées dans la BDD
-      const dataPictures = await Picture.findAll({
+      const dataPictures = await BeforeAfterPicture.findAll({
+        include: [
+          { model: Picture, as: 'before' },
+          { model: Picture, as: 'after' }
+        ],
         order: [["position", "ASC"]],
       });
 

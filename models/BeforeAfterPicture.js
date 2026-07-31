@@ -13,7 +13,7 @@ const BeforeAfterPicture = sequelize.define("BeforeAfterPicture", {
   }
 },
 {
-  tableName: "beforeAfterPictures",
+  tableName: "before_after_pictures",
 });
 
 export default BeforeAfterPicture;

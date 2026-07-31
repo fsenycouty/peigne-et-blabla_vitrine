@@ -1,5 +1,5 @@
-import Picture from "./Picture";
-import BeforeAfterPicture from "./BeforeAfterPicture";
+import Picture from './Picture.js';
+import BeforeAfterPicture from './BeforeAfterPicture.js';
 
 // ** Association : 1 Picture belongs To One BeforeAfterPicture **
 
@@ -40,4 +40,4 @@ Picture.hasOne(
   }
 );
 
-export { Picture, BeforeAfterPicture };
+export { BeforeAfterPicture, Picture };

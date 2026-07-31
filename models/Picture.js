@@ -6,7 +6,7 @@ import sequelize from '../database/sequelize-client.js';
 import { DataTypes } from 'sequelize';
 
 const Picture = sequelize.define("Picture", {
-  urlPicture: {
+  url: {
     type: DataTypes.TEXT,
     allowNull: false,
   }

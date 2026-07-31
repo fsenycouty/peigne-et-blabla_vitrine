@@ -25,7 +25,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 
 export default sequelize;
 
-// Test de la connexion avec la base de donnée (node database/sequelize-client.js)
+// Connexion avec la base de donnée
 try {
   // Pour se connecter, l'ORM Sequelize utilise la méthode "authenticate()" qui renvoie une promesse
   await sequelize.authenticate();
