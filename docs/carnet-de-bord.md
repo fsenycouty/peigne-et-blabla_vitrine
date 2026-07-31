@@ -312,8 +312,45 @@
   - **Cause** : deux associations parallèles entre les deux mêmes entités (`CONCERNS_BEFORE`/`CONCERNS_AFTER`) mettent en difficulté l'algorithme de placement automatique par défaut de Mocodo.
   - **Solution** : changer d'algorithme d'arrangement (`--arrange=ga` ou `--arrange=lp` plutôt que `bb`, le mode exact par défaut). Le texte Mocodo restait valide indépendamment de ce problème de rendu.
 
+---
+
+## 01-08-2026
+
+### Objectifs du jour
+
+- Élargir le format de téléphone accepté (indicatif international).
+- Renforcer la protection contre l'injection HTML sur tous les champs de l'email de contact.
+- Corriger le respect du pattern POST/Redirect/GET en cas d'échec d'envoi.
+- Permettre au visiteur de retrouver sa saisie après une erreur (pré-remplissage du formulaire).
+
+### Travail réalisé
+
+**Sécurité / robustesse** :
+
+- Pattern téléphone (`middlewares/validForm.js`) étendu pour accepter le format international (`+33`) en plus du format national, avec ou sans séparateurs (espace, point) entre les groupes de chiffres.
+- `escapeHTML` appliqué désormais aux trois champs (`name`, `phone`, `message`) dans `services/email.service.js` (défense en profondeur), plutôt qu'au seul champ `message` — les champs `name`/`phone` sont déjà contraints par Joi, mais l'échappement systématique protège contre un futur assouplissement du pattern de validation. `.replace(/\n/g, '<br>')` conservé uniquement sur `message`, seul champ pouvant légitimement contenir des retours à la ligne (issu d'un `<textarea>`).
+
+**Gestion des erreurs (Resend)** :
+
+- `ContactController.form` : remplacement du `next(err)` par `res.redirect('/?contact=error-email#contact')` en cas d'échec d'envoi, pour respecter le pattern POST/Redirect/GET (évite la popup navigateur de renvoi de formulaire au rechargement). Introduction d'un 3ᵉ état distinct (`error-email`) pour un message différent d'une erreur de saisie.
+
+**Fonctionnalité : pré-remplissage du formulaire après une erreur** :
+
+1. Installation d'`express-session`.
+2. Ajout de `SESSION_SECRET` dans `.env`/`.env.example` (valeur générée via `crypto.randomBytes`).
+3. Configuration du middleware dans `app.js` (`resave: false`, `saveUninitialized: false`, `cookie.secure: false` avec `TODO` pour le passage en production).
+4. `validForm.js` : sauvegarde de `req.body` (données brutes) dans `req.session.formData` avant la redirection en cas d'erreur de saisie.
+5. `ContactController.js` : même sauvegarde en cas d'échec d'envoi, via `req.body` plutôt que les variables déstructurées (évite un problème de portée de bloc).
+6. `HomeController.js` : lecture de `req.session.formData` dans une variable dédiée, distincte de `responseForm`, puis effacement immédiat de la session.
+7. `home.ejs` : pré-remplissage via l'attribut `value` (`<input>`) et le contenu entre balises (`<textarea>`), avec accès sécurisé (`formData?.name`) pour ne pas planter au chargement normal.
+
+### Difficultés rencontrées / corrigées
+
+- **Point vérifié avant de valider, pas supposé** : comportement de `<%= formData?.name %>` quand `formData` vaut `undefined` — testé directement avec le moteur EJS : rendu en chaîne vide, jamais la chaîne littérale `"undefined"`, donc pas besoin de `|| ''` supplémentaire.
+
 ### À poursuivre
 
+- `cookie.secure: false` à repasser à `true` avant le déploiement en production.
 - Remplacer le Place ID de test par celui d'Alicia une fois sa fiche Google Business vérifiée.
 - Réserver le nom de domaine "www.peigneetblabla.fr" sur Gandi avec la cliente et souscrire à l'abonnement environ 8€/mois pour l'hébergement sur Render.
 - Créer un log sur Resend avec le mail de peigneetblabla@gmail.com :
