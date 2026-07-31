@@ -49,8 +49,8 @@
 - Isolation des dossiers `migrations/` et `seeders/` en CommonJS (fichier `package.json` dédié dans chacun) pour cohabiter avec le `"type": "module"` du reste du projet.
 - Configuration de `config/config.json` avec `use_env_variable: "DATABASE_URL"` : la CLI lit la connexion Supabase depuis l'environnement, aucun identifiant en dur.
 - Écriture de la connexion Sequelize applicative dans `database/sequelize-client.js`.
-- Écriture du modèle `Picture` (`models/Picture.js`).
-- Écriture et application de la migration `create-pictures` (traduction du MPD validé) : table `pictures` créée avec succès dans Supabase, vérifiée dans le Table Editor.
+- Écriture des modèles `Picture`, `BeforeAfterPicture` et le fichier d'associations `index` (`models/`).
+- Écriture et application de la migration `create-pictures` (traduction du MPD validé) : tables `pictures` et beforeAfterPictures créée avec succès dans Supabase, vérifiée dans le Table Editor.
 - Installation de `dotenv-cli` pour permettre à `sequelize-cli` de lire le `.env` lors des commandes (`npx dotenv sequelize-cli db:migrate`).
 - Création de la structure MVC complète : `routers/`, `controllers/`, `models/`, `views/`, `middlewares/`.
 - Configuration minimale du serveur Express (`app.js`) avec une route et un contrôleur de test (« Hello, welcome to the home page! ») pour valider la chaîne routeur → contrôleur → réponse.

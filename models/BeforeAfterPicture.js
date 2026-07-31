@@ -1,18 +1,19 @@
-// Définition de l'entité Picture pour Sequelize
+// Définition de l'entité Before_After_Picutre pour Sequelize
 
 // Importation la connexion à la base de données avec Sequelize
 import sequelize from '../database/sequelize-client.js';
 // Importation de DataTypes pour définir les types de données des colonnes
 import { DataTypes } from 'sequelize';
 
-const Picture = sequelize.define("Picture", {
-  urlPicture: {
-    type: DataTypes.TEXT,
+const BeforeAfterPicture = sequelize.define("BeforeAfterPicture", {
+  position: {
+    type: DataTypes.INTEGER,
     allowNull: false,
+    defaultValue: 0,
   }
-}, 
+},
 {
-  tableName: "pictures",
+  tableName: "beforeAfterPictures",
 });
 
-export default Picture;
+export default BeforeAfterPicture;
