@@ -12,7 +12,7 @@ export async function emailSend(name, phone, message) {
     from: 'Peigne et Blabla <onboarding@resend.dev>',
     to: process.env.CONTACT_EMAIL_TO,
     subject: `Nouveau contact`,
-    html: `<h4>Nom du client : ${name}</h4><h4>Tel : ${phone}</h4><h4>${escapeHTML(message).replace(/\n/g, '<br>')}</h4>`,
+    html: `<h4>Nom du client : ${escapeHTML(name)}</h4><h4>Tel : ${escapeHTML(phone)}</h4><h4>${escapeHTML(message).replace(/\n/g, '<br>')}</h4>`,
   });
 
   if (error) {

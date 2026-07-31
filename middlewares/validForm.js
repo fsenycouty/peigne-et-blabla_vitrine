@@ -6,7 +6,7 @@ export function validForm(req, res, next) {
   // Définition du schema du body attendu
   const schemaForm = Joi.object({
     name: Joi.string().trim().min(3).max(100).pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ\s.'’-]+$/).required(),
-    phone: Joi.string().trim().pattern(/^0[1-9]\d{8}$/).required(),
+    phone: Joi.string().trim().pattern(/^(?:0|\+33\s?)[1-9](?:[\s.]?\d{2}){4}$/).required(),
     message: Joi.string().trim().min(1).max(2000).required(),
   });
   // Validation du body de la requête
