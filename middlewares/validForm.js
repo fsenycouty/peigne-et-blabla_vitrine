@@ -13,6 +13,8 @@ export function validForm(req, res, next) {
   const { error, value } = schemaForm.validate(req.body);
   
   if (error) {
+    // Sauvegarde les données saisies par le visiteur
+    req.session.formData = req.body;
     // Log complet côté serveur
     console.error('Informations saisies non valides :', error.message);
     // Redirige vers  "/" avec req.query.contact = 'error'

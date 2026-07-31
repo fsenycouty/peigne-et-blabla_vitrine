@@ -22,10 +22,14 @@ class HomeController {
       // Récupère les avis Google
       const dataReviews = await getReviews();
 
-      // Récupère le résultat de la soumission au formulaire : 'success', 'error' ou undifined
+      // Récupère le résultat de la soumission au formulaire : 'success', 'error', 'error-email' ou undefined
       const responseForm = req.query.contact;
+      // Récupère les données sauvegardé après l'erreur à la soumission du formulaire pour les renvoyer à la vue
+      const formData = req.session.formData;
+      // Efface les données du formulaire sauvegardé
+      req.session.formData = null;
 
-      res.render("home", { dataPictures, responseForm, dataReviews, currentOffer });
+      res.render("home", { dataPictures, responseForm, formData, dataReviews, currentOffer });
 
     } catch (err) {
       // Trace complète côté serveur uniquement — jamais renvoyée au visiteur

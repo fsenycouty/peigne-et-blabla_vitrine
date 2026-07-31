@@ -65,11 +65,11 @@ export async function getReviews() {
   // Récupère les données des 3 derniers avis de reviews : la note, le texte et le nom du client
   const threeRecentReviews = [];
 
-  for (let i = 0; i < 3; i++) {
+  for (const item of reviews.slice(0, 3)) {
     const review = {
-      rating: reviews[i].rating,
-      text: reviews[i].originalText.text,
-      name: reviews[i].authorAttribution.displayName.toLowerCase(),
+      rating: item.rating,
+      text: item.originalText?.text || ' ',
+      name: item.authorAttribution.displayName.toLowerCase(),
     };
 
     threeRecentReviews.push(review);

@@ -375,6 +375,7 @@
               id="contact-name"
               name="name"
               placeholder="Votre nom"
+              value="<%= formData?.name %>"
             />
 
             <label class="sr-only" for="contact-phone">Votre téléphone</label>
@@ -383,6 +384,7 @@
               id="contact-phone"
               name="phone"
               placeholder="Votre téléphone"
+              value="<%= formData?.phone %>"
             />
 
             <label class="sr-only" for="contact-message">Votre message</label>
@@ -391,7 +393,7 @@
               name="message"
               rows="6"
               placeholder="Votre message"
-            ></textarea>
+            ><%= formData?.message %></textarea>
           </div>
 
           <div class="button-area button-wrap">

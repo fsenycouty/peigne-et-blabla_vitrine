@@ -1,4 +1,4 @@
-// Définition de l'entité Before_After_Picutre pour Sequelize
+// Définition de l'entité Before_after_picutre pour Sequelize
 
 // Importation la connexion à la base de données avec Sequelize
 import sequelize from '../database/sequelize-client.js';

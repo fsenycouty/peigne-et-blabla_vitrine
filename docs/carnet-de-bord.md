@@ -51,7 +51,6 @@
 - Écriture de la connexion Sequelize applicative dans `database/sequelize-client.js`.
 - Écriture du modèle `Picture` (`models/Picture.js`).
 - Écriture et application de la migration `create-pictures` (traduction du MPD validé) : table `pictures` créée avec succès dans Supabase, vérifiée dans le Table Editor.
-- Installation de `dotenv-cli` pour permettre à `sequelize-cli` de lire le `.env` lors des commandes (`npx dotenv sequelize-cli db:migrate`).
 - Création de la structure MVC complète : `routers/`, `controllers/`, `models/`, `views/`, `middlewares/`.
 - Configuration minimale du serveur Express (`app.js`) avec une route et un contrôleur de test (« Hello, welcome to the home page! ») pour valider la chaîne routeur → contrôleur → réponse.
 
@@ -63,7 +62,7 @@
 
 - **`sequelize-cli db:migrate` échoue avec `Error parsing url: undefined`** :
   - **Cause** : `sequelize-cli` est un outil indépendant de l'application : il ne charge pas le `.env` automatiquement (seule l'application le fait, via `import 'dotenv/config'`). `DATABASE_URL` était donc `undefined` au moment où la CLI en avait besoin.
-  - **Solution** : installation de `dotenv-cli`, utilisé pour précharger les variables d'environnement avant d'exécuter les commandes `sequelize-cli` (`npx dotenv sequelize-cli db:migrate`).
+  - **Solution** : installation de `dotenv-cli`, utilisé pour précharger les variables d'environnement avant d'exécuter les commandes `sequelize-cli` (`npx dotenv-cli sequelize-cli db:migrate`).
 
 - **Point de vigilance repéré en relecture (corrigé avant tout bug réel)** : l'option `freezeTableName` empêche la pluralisation automatique du nom de table par Sequelize, mais ne suffit pas à faire correspondre exactement `Picture` (modèle, singulier) à `pictures` (table réelle, pluriel, minuscule) — la pluralisation automatique de Sequelize aurait donné `Pictures` avec une majuscule. D'où la nécessité de préciser explicitement `tableName: "pictures"` dans la définition du modèle, plutôt que de compter sur un comportement par défaut.
 

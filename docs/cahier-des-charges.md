@@ -15,6 +15,7 @@ Le site permet de :
 
 - voir la présentation d'Alicia et ses coordonnées dès l'arrivée sur la page ;
 - consulter les prestations et les tarifs, classés par catégorie (Femme / Homme / Enfant) ;
+- voir quand elle existe, une offre du moment ponctuelle sous forme d'image (flyer) ;
 - regarder une galerie de photos avant/après ;
 - consulter les horaires d'ouverture (jours et heures) dans un cadre simple appelé « Mes horaires » ;
 - lire des avis Google ;
@@ -28,6 +29,7 @@ Le site permet de :
 - **Accessibilité** : le site doit être utilisable par tout le monde, y compris avec un lecteur d'écran (textes alternatifs sur les images, icônes décoratives cachées, etc.).
 - **Mobile-first** (priorité au mobile) : le site doit d'abord bien fonctionner sur téléphone, puis s'adapter aux écrans plus grands.
 - **Hébergement des images** : les photos sont stockées avec l'outil Cloudinary (service en ligne fait pour héberger et gérer des images).
+- **Offre du moment** : contrairement à la galerie, l'image de l'offre du moment n'est pas hébergée sur Cloudinary mais stockée directement dans le code du site (`public/img/`). Ce choix s'explique par la nature différente de ce contenu : il n'y a pas d'espace admin, donc seul le développeur peut la mettre à jour (remplacement du fichier + redéploiement) ; et contrairement aux paires avant/après (multiples, ordonnées, à relier entre elles), c'est un élément unique, sans relation ni historique à modéliser en base. La présence ou l'absence du fichier sert elle-même d'interrupteur : si l'image n'existe pas, le bloc ne s'affiche simplement pas.
 - **Base de données** : les informations sur la galerie de photos sont enregistrées dans une base de données PostgreSQL, hébergée avec l'outil Supabase.
 - **Formulaire de contact** : le message envoyé par un visiteur doit arriver dans la boîte mail d'Alicia (peigneetblabla@gmail.com).
 

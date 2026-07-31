@@ -6,6 +6,7 @@ Site vitrine pour Alicia, coiffeuse à domicile.
 
 - En tant que Visiteur, je veux voir les coordonnées et la zone d'intervention dès l'arrivée sur le site.
 - En tant que Visiteur, je veux consulter les prestations et les tarifs classés par catégorie (Femme / Homme / Enfant).
+- En tant que Visiteur, je veux consulter une offre du moment si elle existe.
 - En tant que Visiteur, je veux parcourir une galerie de réalisations (avant/après).
 - En tant que Visiteur, je veux consulter les horaires d'ouverture, dans le but de savoir quand appeler pour prendre rendez-vous.
 - En tant que Visiteur, je veux appeler directement depuis un bouton, dans le but de réserver un rendez-vous.
