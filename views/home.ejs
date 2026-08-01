@@ -338,12 +338,14 @@
 
       <div class="contact-layout">
         <div class="map-box map-area">
-          <iframe
-            src="https://www.google.com/maps?q=Arthez-de-B%C3%A9arn,France&z=10&output=embed"
-            loading="lazy"
-            title="Zone d'intervention — 15km autour d'Arthez-de-Béarn"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
+          <div id="map-container" class="map-container">
+            <p class="map-fallback">
+              Carte non affichée sans votre accord.
+              <a href="https://www.google.com/maps?q=Arthez-de-B%C3%A9arn,France&z=10" target="_blank" rel="noopener noreferrer">
+                Voir la zone d'intervention sur Google Maps
+              </a>
+            </p>
+          </div>
           <div class="radius-badge">
             <i class="ti ti-map-pin icon-pink" aria-hidden="true"></i>Rayon ~15
             km
@@ -466,6 +468,9 @@
       <i class="ti ti-arrow-up" aria-hidden="true"></i>
     </a>
 
-     <script src="/js/contact-form.js" defer></script>
+    <%- include('partials/cookie-banner') %>
+
+    <script src="/js/contact-form.js" defer></script>
+    <script src="/js/cookie-consent.js" defer></script>
   </body>
 </html>
