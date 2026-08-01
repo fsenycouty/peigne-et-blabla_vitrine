@@ -1,3 +1,10 @@
+/**
+ * Gestion du consentement cookies pour la carte Google Maps.
+ * Choix mémorisé en localStorage (préférence d'affichage, pas un jeton
+ * d'authentification). Tant qu'aucun choix n'est enregistré, la carte
+ * n'est pas chargée et la bannière reste visible.
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
   const CONSENT_KEY = 'peb-map-consent';
   const banner = document.getElementById('cookie-banner');
@@ -7,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!banner || !mapContainer || !acceptBtn || !refuseBtn) return;
 
+  /** Injecte l'iframe Google Maps dans le conteneur. */
   function loadMap() {
     mapContainer.innerHTML = `
       <iframe
@@ -18,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showBanner() {
-    banner.hidden = false;
+    banner.hidden = false; // aucun choix encore fait
     document.body.classList.add('has-cookie-banner');
   }
 

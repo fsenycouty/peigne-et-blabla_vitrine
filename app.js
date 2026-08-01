@@ -5,6 +5,7 @@ import express from 'express';
 import session from 'express-session';
 import routerHome from './routers/routerHome.js';
 import routerContact from './routers/routerContact.js';
+import routerLegal from './routers/routerLegal.js';
 import { notFound } from './middlewares/notFound.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 
@@ -37,6 +38,7 @@ app.use(session(
 // Utilisation des router
 app.use(routerHome);
 app.use(routerContact);
+app.use(routerLegal);
 
 // Cas où la page n'existe pas
 app.use(notFound);

@@ -1,0 +1,90 @@
+<%# Page de la politique de confidentialité (RGPD) -%>
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <%- include('partials/head', {
+      title: "Politique de confidentialité — Peigne et bla-bla",
+      description: "Politique de confidentialité RGPD du site Peigne et bla-bla."
+    }) %>
+  </head>
+
+  <body>
+    <%- include('partials/site-nav') %>
+
+    <section class="section section-white">
+      <div class="legal-content">
+        <h1>Politique de confidentialité</h1>
+        <p>
+          Cette politique explique quelles données sont traitées par le site
+          <strong><%= editorInfo.domain %></strong>, pourquoi, et quels sont vos droits, conformément au RGPD
+          (Règlement UE 2016/679) et à la loi Informatique et Libertés.
+        </p>
+
+        <h2>1. Responsable du traitement</h2>
+        <p>
+          <%= editorInfo.fullName %>, exploitante du site <%= editorInfo.domain %> — voir les
+          <a href="/legal-notice">mentions légales</a> pour les coordonnées complètes. Aucun DPO n'est
+          désigné : Alicia est le point de contact direct pour toute question relative à vos données.
+        </p>
+
+        <h2>2. Formulaire de contact</h2>
+        <p>
+          Les données saisies (nom, téléphone, message) sont validées côté serveur, envoyées par email
+          uniquement via le service Resend directement dans la boîte mail d'Alicia <%= editorInfo.email %>, et jamais enregistrées
+          en base de données.
+        </p>
+        <ul>
+          <li><strong>Finalité</strong> : répondre à votre demande de contact / prise de rendez-vous</li>
+          <li><strong>Base légale</strong> : intérêt légitime</li>
+          <li><strong>Destinataire</strong> : Alicia uniquement</li>
+          <li><strong>Sous-traitant</strong> : Resend (envoi d'email), société américaine</li>
+          <li><strong>Durée de conservation</strong> : le temps nécessaire au traitement, puis conservation raisonnable dans la messagerie d'Alicia</li>
+        </ul>
+
+        <h2>3. Galerie de photos</h2>
+        <p>
+          Les photographies avant/après ne montrent jamais le visage des clientes. Elles sont ajoutées
+          manuellement par Alicia et hébergées via Cloudinary (images) et Supabase (métadonnées).
+        </p>
+
+        <h2>4. Avis Google</h2>
+        <p>
+          Les avis affichés proviennent de la fiche Google Business d'Alicia, récupérés via l'API Google
+          Places et mis en cache côté serveur (24h). Aucune donnée n'est collectée sur les visiteurs à cette
+          occasion.
+        </p>
+
+        <h2>5. Carte de zone d'intervention et cookies</h2>
+        <p>
+          Une carte Google Maps est intégrée pour visualiser la zone d'intervention. Elle n'est chargée
+          qu'après votre consentement, recueilli via la bannière affichée sur le site. Si vous refusez, aucune
+          requête n'est faite vers Google et un lien externe vers Google Maps est proposé à la place. Votre
+          choix est mémorisé localement dans votre navigateur, sans être transmis à Alicia ni à aucun tiers.
+          Le site ne dépose aucun autre cookie.
+        </p>
+
+        <h2>6. Sécurité</h2>
+        <p>Les données du formulaire sont validées et assainies avant tout traitement, le contenu libre du message est échappé avant insertion dans l'email envoyé, et le site est servi en HTTPS.</p>
+
+        <h2>7. Transferts hors Union européenne</h2>
+        <p>Certains prestataires techniques (Resend, Google, l'hébergeur Render selon la région choisie) sont des sociétés américaines. Ces transferts sont encadrés par les garanties prévues par le RGPD.</p>
+
+        <h2>8. Vos droits</h2>
+        <p>
+          Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation et d'opposition
+          concernant vos données. Vous pouvez exercer ces droits en écrivant à <%= editorInfo.email %>, ou
+          introduire une réclamation auprès de la CNIL (www.cnil.fr).
+        </p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <%- include('partials/footer') %>
+    </footer>
+
+    <a href="/#home" class="back-to-top" aria-label="Remonter en haut de la page">
+      <i class="ti ti-arrow-up" aria-hidden="true"></i>
+    </a>
+  </body>
+</html>

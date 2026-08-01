@@ -1,0 +1,75 @@
+<%# Page des mentions légales -%>
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <%- include('partials/head', {
+      title: "Mentions légales — Peigne et bla-bla",
+      description: "Mentions légales du site Peigne et bla-bla, Alicia coiffeuse à domicile à Arthez-de-Béarn."
+    }) %>
+  </head>
+
+  <body>
+    <%- include('partials/site-nav') %>
+
+    <section class="section section-white">
+      <div class="legal-content">
+        <h1>Mentions légales</h1>
+
+        <h2>1. Éditeur du site</h2>
+        <p>Le présent site est édité par :</p>
+        <ul>
+          <li><strong>Prénom / Nom</strong> : <%= editorInfo.fullName %></li>
+          <li><strong>Statut juridique</strong> : <%= editorInfo.status %></li>
+          <li><strong>Activité</strong> : <%= editorInfo.activity %></li>
+          <li><strong>Nom commercial</strong> : <%= editorInfo.commercialName %></li>
+          <li><strong>Site</strong> : <%= editorInfo.domain %></li>
+          <li><strong>Adresse</strong> : <%= editorInfo.address %></li>
+          <li><strong>N° SIRET</strong> : <%= editorInfo.siret %></li>
+          <li><strong>N° TVA intracommunautaire</strong> : <%= editorInfo.tva %></li>
+          <li><strong>Téléphone</strong> : <%= editorInfo.phone %></li>
+          <li><strong>Email</strong> : <%= editorInfo.email %></li>
+        </ul>
+        <p>La directrice de la publication est <%= editorInfo.fullName %>, en sa qualité d'exploitante du site.</p>
+
+        <h2>2. Hébergement</h2>
+        <p>Le site est hébergé par :</p>
+        <ul>
+          <li><strong>Hébergeur</strong> : Render Services, Inc.</li>
+          <li><strong>Adresse</strong> : 525 Brannan Street, Suite 300, San Francisco, CA 94107, États-Unis</li>
+          <li><strong>Contact</strong> : render.com/contact</li>
+        </ul>
+
+        <h2>3. Conception et développement</h2>
+        <p>Site conçu et développé par Fabrice Seny-Couty, dans le cadre d'une formation Concepteur Développeur d'Applications.</p>
+
+        <h2>4. Propriété intellectuelle</h2>
+        <p>
+          L'ensemble des contenus présents sur ce site (textes, photographies, logo, mise en page, code source)
+          est la propriété d'<%= editorInfo.fullName %> ou de ses prestataires, sauf mention contraire. Toute
+          reproduction, représentation ou exploitation, totale ou partielle, sans autorisation préalable, est
+          interdite et pourrait constituer une contrefaçon au sens des articles L.335-2 et suivants du Code de
+          la propriété intellectuelle.
+        </p>
+        <p>Les photographies « avant / après » publiées dans la galerie ne montrent jamais le visage des clientes.</p>
+
+        <h2>5. Liens et contenus tiers</h2>
+        <p>Le site intègre une carte Google Maps (chargée après votre consentement) et des avis Google récupérés via l'API Google Places. Ces services sont fournis par Google LLC et soumis à ses propres conditions d'utilisation, indépendantes du présent site.</p>
+
+        <h2>6. Données personnelles</h2>
+        <p>Le traitement des données personnelles est détaillé dans la <a href="/privacy-policy">politique de confidentialité</a>.</p>
+
+        <h2>7. Droit applicable</h2>
+        <p>Les présentes mentions légales sont soumises au droit français. En cas de litige et à défaut de résolution amiable, les tribunaux français seront seuls compétents.</p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <%- include('partials/footer') %>
+    </footer>
+
+    <a href="/#home" class="back-to-top" aria-label="Remonter en haut de la page">
+      <i class="ti ti-arrow-up" aria-hidden="true"></i>
+    </a>
+  </body>
+</html>
