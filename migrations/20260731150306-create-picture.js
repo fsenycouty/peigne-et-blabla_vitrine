@@ -1,4 +1,4 @@
-// migrations/20260731120000-create-picture.js
+// migrations/20260731150306-create-picture.js
 
 'use strict';
 

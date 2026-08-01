@@ -2,6 +2,7 @@
 import { BeforeAfterPicture, Picture } from '../models/index.js'
 import { getReviews } from "../services/review.service.js";
 import { getCurrentOffer } from "../services/offer.service.js";
+import { getOptimizedImageUrl } from "../services/cloudinary.service.js";
 
 class HomeController {
   // Affiche la page d'accueil avec la galerie de photos issues de la BDD.
@@ -17,6 +18,13 @@ class HomeController {
           { model: Picture, as: 'after' }
         ],
         order: [["position", "ASC"]],
+      });
+
+      // Optimise chaque URL Cloudinary (format et qualité automatiques, largeur
+      // réduite) : la vue reste inchangée, seule l'URL affichée est plus légère
+      dataPictures.forEach((picture) => {
+        picture.before.url = getOptimizedImageUrl(picture.before.url);
+        picture.after.url = getOptimizedImageUrl(picture.after.url);
       });
 
       // Récupère les avis Google
