@@ -344,16 +344,37 @@
 6. `HomeController.js` : lecture de `req.session.formData` dans une variable dédiée, distincte de `responseForm`, puis effacement immédiat de la session.
 7. `home.ejs` : pré-remplissage via l'attribut `value` (`<input>`) et le contenu entre balises (`<textarea>`), avec accès sécurisé (`formData?.name`) pour ne pas planter au chargement normal.
 
+**Consentement cookies (carte Google Maps)** :
+
+- Bloc carte de `home.ejs` transformé en conteneur vide (`#map-container`) + repli (lien externe vers Google Maps) en cas de refus.
+- Nouveau partial `views/partials/cookie-banner.ejs` et script `public/js/cookie-consent.js` : choix mémorisé en `localStorage` (préférence d'affichage non sensible), carte chargée uniquement après consentement explicite.
+- CSS dédié (`.cookie-banner`, `.map-container`, `.map-fallback`) et ajustement du bouton `.back-to-top` (classe `has-cookie-banner` sur `<body>`) pour éviter que les deux éléments fixes en bas d'écran ne se recouvrent.
+
+**Volet légal (mentions légales & politique de confidentialité)** :
+
+- Centralisation des informations éditeur dans `config/legal.js` (nom, statut, adresse, SIRET, TVA, contact), réutilisées par les deux vues plutôt que dupliquées.
+
+**Pages légales (nouvelles vues)** :
+ 
+- Deux nouvelles routes (`GET /legal-notice`, `GET /privacy-policy`), `controllers/LegalController.js`, `routers/routerLegal.js`, montés dans `app.js` — même schéma routeur → contrôleur → vue que pour `home`.
+- Contrôleur sans `try/catch` : contenu 100% statique, rien ne peut échouer côté données.
+- Nouvelle section CSS `.legal-content` pour la mise en forme du texte juridique.
+- Liens du footer (`partials/footer.ejs`) pointés vers les vraies routes (remplacement des `href="#"`).
+
 ### Difficultés rencontrées / corrigées
 
-- **Point vérifié avant de valider, pas supposé** : comportement de `<%= formData?.name %>` quand `formData` vaut `undefined` — testé directement avec le moteur EJS : rendu en chaîne vide, jamais la chaîne littérale `"undefined"`, donc pas besoin de `|| ''` supplémentaire.
+- **Point vérifié avant de valider** : comportement de `<%= formData?.name %>` quand `formData` vaut `undefined` — testé directement avec le moteur EJS : rendu en chaîne vide, jamais la chaîne littérale `"undefined"`, donc pas besoin de `|| ''` supplémentaire.
+- **La bannière cookies restait affichée après un clic Accepter/Refuser malgré `banner.hidden = true`** :
+  - **Cause** : la règle `.cookie-banner{ display:flex; }` a la même spécificité CSS que la règle par défaut du navigateur `[hidden]{ display:none; }` ; venant après elle dans la cascade, elle l'emportait quel que soit l'état de l'attribut `hidden`.
+  - **Solution** : ajout d'une règle explicite `.cookie-banner[hidden]{ display:none; }`, de spécificité supérieure (classe + attribut), qui l'emporte dans tous les cas.
 
 ### À poursuivre
 
 - `cookie.secure: false` à repasser à `true` avant le déploiement en production.
 - Remplacer le Place ID de test par celui d'Alicia une fois sa fiche Google Business vérifiée.
-- Réserver le nom de domaine "www.peigneetblabla.fr" sur Gandi avec la cliente et souscrire à l'abonnement environ 8€/mois pour l'hébergement sur Render.
 - Créer un log sur Resend avec le mail de peigneetblabla@gmail.com :
   - récupérer le RESEND_API_KEY à remplacer dans le .env
   - modifier l'adresse CONTACT_EMAIL_TO du .env avec celui de peigneetblabla@gmail.com
   - paramétrer Resend avec le vrai nom de domaine
+- Compléter `config/legal.js` : adresse administrative, n° SIRET.
+- Reprendre le plan de déploiement Render (variables d'environnement prod → DNS avec `www.peigneetblabla.fr` → HTTPS → checklist finale).

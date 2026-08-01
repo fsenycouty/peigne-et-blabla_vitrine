@@ -3,12 +3,12 @@
 // endroit à modifier si le SIRET/l'adresse d'Alicia changent).
 export const editorInfo = {
   fullName: 'Alicia Lageiste',
-  status: 'Auto-entrepreneuse (micro-entreprise)',
+  status: 'Micro-entreprise',
   activity: 'Coiffeuse à domicile',
   commercialName: 'Peigne et bla-bla',
   domain: 'www.peigneetblabla.fr',
-  address: 'Quater route du cagnes 64370 Arthez-de-Béarn',
-  siret: '[SIRET à compléter]',
+  address: '3 Q route du cagnes, 64370 Arthez-De-Béarn',
+  siret: '99173460900019',
   tva: 'TVA non applicable, art. 293 B du CGI',
   phone: '07 59 90 85 54',
   email: 'peigneetblabla@gmail.com',
