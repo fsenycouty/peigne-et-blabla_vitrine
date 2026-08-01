@@ -376,5 +376,4 @@
   - récupérer le RESEND_API_KEY à remplacer dans le .env
   - modifier l'adresse CONTACT_EMAIL_TO du .env avec celui de peigneetblabla@gmail.com
   - paramétrer Resend avec le vrai nom de domaine
-- Compléter `config/legal.js` : adresse administrative, n° SIRET.
 - Reprendre le plan de déploiement Render (variables d'environnement prod → DNS avec `www.peigneetblabla.fr` → HTTPS → checklist finale).
