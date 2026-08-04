@@ -1,6 +1,6 @@
 // Service : construction d'URLs des images Cloudinary optimisées pour l'affichage.
 
-export function optimizeUrlImage(url, width = 400) {
+export function optimizeUrlImage(url, width = 364) {
 
   const marker = '/upload/';
   // Cherche la position de '/upload/' dans l'URL
