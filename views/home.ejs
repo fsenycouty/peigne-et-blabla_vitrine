@@ -247,17 +247,25 @@
       <div class="gallery-grid">
 
         <% for (const picture of galleryPictures) { %>
-        <div class="ba-slider">
-          <div class="ba-slide ba-before">
-            <span class="ba-label">Avant</span>
-            <img src="<%= picture.beforeUrl %>" alt="Photo avant, coiffure n°<%= picture.position %>" loading="lazy"/>
-          </div>
-          <div class="ba-slide ba-after">
-            <span class="ba-label">Après</span>
-            <img src="<%= picture.afterUrl %>" alt="Photo après, coiffure n°<%= picture.position %>" loading="lazy"/>
-          </div>
-        </div>
-        <% } %>
+<div class="ba-slider">
+  <input type="checkbox" id="ba-toggle-<%= picture.position %>" class="ba-toggle-input" />
+  <div class="ba-slide ba-before">
+    <span class="ba-label">Avant</span>
+    <img src="<%= picture.beforeUrl %>" alt="Photo avant, coiffure n°<%= picture.position %>" loading="lazy"/>
+  </div>
+  <div class="ba-slide ba-after">
+    <span class="ba-label">Après</span>
+    <img src="<%= picture.afterUrl %>" alt="Photo après, coiffure n°<%= picture.position %>" loading="lazy"/>
+  </div>
+  <label
+    for="ba-toggle-<%= picture.position %>"
+    class="ba-toggle-label"
+    aria-label="Afficher la photo après, coiffure n°<%= picture.position %>"
+  >
+    <i class="ti ti-arrows-left-right" aria-hidden="true"></i>
+  </label>
+</div>
+<% } %>
         
       </div>
     </section>
