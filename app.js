@@ -3,6 +3,7 @@
 import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
+import compression from 'compression';
 import routerHome from './routers/routerHome.js';
 import routerContact from './routers/routerContact.js';
 import routerLegal from './routers/routerLegal.js';
@@ -11,6 +12,10 @@ import { errorHandler } from './middlewares/errorHandler.js';
 
 // Initialisation de l'application Express
 const app = express();
+
+// Compresse les réponses HTTP (HTML, CSS, JS) avec gzip avant de les envoyer au navigateur
+// Placé tout en haut de la chaîne de middlewares pour s'appliquer à toutes les réponses
+app.use(compression());
 
 // Configuration de EJS comme moteur de vues
 app.set('view engine', 'ejs');
