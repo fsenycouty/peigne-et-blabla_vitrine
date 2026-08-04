@@ -9,6 +9,7 @@ const BeforeAfterPicture = sequelize.define("BeforeAfterPicture", {
   position: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    unique: true,
     defaultValue: 0,
   }
 },

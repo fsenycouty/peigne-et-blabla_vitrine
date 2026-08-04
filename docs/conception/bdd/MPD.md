@@ -12,7 +12,7 @@
 | Colonne | Type | Contraintes |
 |---|---|---|
 | id | INT (identity) | PRIMARY KEY |
-| position | INT | NOT NULL, DEFAULT 0 |
+| position | INT | NOT NULL, UNIQUE, DEFAULT 0 |
 | before_picture_id | INT | NOT NULL, FOREIGN KEY → `pictures(id)`, ON DELETE RESTRICT, ON UPDATE CASCADE |
 | after_picture_id | INT | NOT NULL, FOREIGN KEY → `pictures(id)`, ON DELETE RESTRICT, ON UPDATE CASCADE |
 
