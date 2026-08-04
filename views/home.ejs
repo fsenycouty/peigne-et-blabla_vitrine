@@ -245,15 +245,15 @@
 
       <div class="gallery-grid">
 
-        <% for (const picture of dataPictures) { %>
+        <% for (const picture of galleryPictures) { %>
         <div class="ba-slider">
           <div class="ba-slide ba-before">
             <span class="ba-label">Avant</span>
-            <img src="<%= picture.before.url %>" alt="Photo avant, coiffure n°<%= picture.position %>" />
+            <img src="<%= picture.beforeUrl %>" alt="Photo avant, coiffure n°<%= picture.position %>" />
           </div>
           <div class="ba-slide ba-after">
             <span class="ba-label">Après</span>
-            <img src="<%= picture.after.url %>" alt="Photo après, coiffure n°<%= picture.position %>" />
+            <img src="<%= picture.afterUrl %>" alt="Photo après, coiffure n°<%= picture.position %>" />
           </div>
         </div>
         <% } %>

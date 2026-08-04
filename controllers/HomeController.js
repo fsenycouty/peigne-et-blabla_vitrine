@@ -1,7 +1,8 @@
 // Controller pour la page d'accueil de Peigne et Blabla
-import { BeforeAfterPicture, Picture } from '../models/index.js'
+import { BeforeAfterPicture, Picture } from "../models/index.js";
 import { getReviews } from "../services/review.service.js";
 import { getCurrentOffer } from "../services/offer.service.js";
+import { optimizeUrlImage } from "../services/image.service.js";
 
 class HomeController {
   // Affiche la page d'accueil avec la galerie de photos issues de la BDD.
@@ -13,11 +14,20 @@ class HomeController {
       // Récupère les infos des photos stockées dans la BDD
       const dataPictures = await BeforeAfterPicture.findAll({
         include: [
-          { model: Picture, as: 'before' },
-          { model: Picture, as: 'after' }
+          { model: Picture, as: "before" },
+          { model: Picture, as: "after" },
         ],
         order: [["position", "ASC"]],
       });
+      
+      // Transforme les instances Sequelize en objets simples déjà prêts pour l'affichage
+      const galleryPictures = dataPictures.map((picture) => (
+        {
+          position: picture.position,
+          beforeUrl: optimizeUrlImage(picture.before.url),
+          afterUrl: optimizeUrlImage(picture.after.url),
+        } 
+      ));
 
       // Récupère les avis Google
       const dataReviews = await getReviews();
@@ -29,8 +39,13 @@ class HomeController {
       // Efface les données du formulaire sauvegardé
       req.session.formData = null;
 
-      res.render("home", { dataPictures, responseForm, formData, dataReviews, currentOffer });
-
+      res.render("home", {
+        galleryPictures,
+        responseForm,
+        formData,
+        dataReviews,
+        currentOffer,
+      });
     } catch (err) {
       // Trace complète côté serveur uniquement — jamais renvoyée au visiteur
       console.error("Erreur lors de la récupération des données : ", err);
