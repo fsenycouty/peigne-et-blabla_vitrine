@@ -370,6 +370,21 @@
 
 ---
 
+## 04-08-2026
+
+### Objectifs du jour
+
+- Rédiger le `docs/plan-de-test.md` et exécuter la checklist manuelle du plan de test (accessibilité et parcours), dans le cadre de l'exercice de validation de la compétence "Préparer et exécuter les plans de tests" du dossier CDA.
+
+### Travail réalisé
+
+**Accessibilité — galerie avant/après** :
+
+- Ajout d'une bascule clavier sur les paires avant/après de la galerie : case à cocher masquée (`opacity:0`, pas `display:none`, pour rester atteignable au Tab) associée à un `<label aria-label="Afficher la photo après...">`, avec un contour de focus visible ajouté en CSS. La bascule n'était possible qu'au survol souris (desktop) ou au swipe tactile (mobile) — aucun moyen clavier.
+- Contrastes texte/fond documentés et corrigés également(commentaires dans `style.css`) : `.btn-pink:hover` passait de 3.53:1 à 9.24:1, `.btn-outline:hover` à 6.83:1 (seuil WCAG AA : 4.5:1).
+
+---
+
 ## 05-08-2026
 
 ### Objectifs du jour
@@ -378,6 +393,10 @@
 - Trancher la question de gouvernance des comptes techniques (hébergement, facturation) entre développeur et cliente.
 
 ### Travail réalisé
+
+**Plan de test** :
+
+- Finalisation du plan de test : checklist manuelle des 9 parcours utilisateur (user stories) + 6 critères d'accessibilité, sur les deux environnements (local et production `peigneetblabla.fr`), tous validés OK après vérification.
 
 **Choix d'hébergement (comparatif documenté)** :
 
@@ -414,5 +433,4 @@
 
 ### À poursuivre
 
-- Mettre à jour le README avec la nouvelle organisation des comptes (Render au nom d'Alicia, accès du développeur par identifiants partagés, absence de déploiement automatique).
-- Reprendre le sujet tests unitaires/intégration dans une conversation dédiée (premier test déjà écrit et validé sur `services/cloudinary.service.js` à titre d'exercice, à formaliser).
+- Écrire un test unitaire automatisé (`node:test`) sur la fonction pure `optimizeUrlImage()` (`services/image.service.js`), dans `test/image.service.test.js` (à titre d'exercice).
