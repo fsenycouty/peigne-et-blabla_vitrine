@@ -368,12 +368,51 @@
   - **Cause** : la règle `.cookie-banner{ display:flex; }` a la même spécificité CSS que la règle par défaut du navigateur `[hidden]{ display:none; }` ; venant après elle dans la cascade, elle l'emportait quel que soit l'état de l'attribut `hidden`.
   - **Solution** : ajout d'une règle explicite `.cookie-banner[hidden]{ display:none; }`, de spécificité supérieure (classe + attribut), qui l'emporte dans tous les cas.
 
+---
+
+## 05-08-2026
+
+### Objectifs du jour
+
+- Finaliser le déploiement en production : nom de domaine, hébergement, email transactionnel.
+- Trancher la question de gouvernance des comptes techniques (hébergement, facturation) entre développeur et cliente.
+
+### Travail réalisé
+
+**Choix d'hébergement (comparatif documenté)** :
+
+- Plusieurs alternatives à Render évaluées à la demande, par curiosité ou par souci d'économie, toutes écartées avec justification :
+  - **VPS OVH** : écarté — demande de gérer soi-même l'OS, le pare-feu, le reverse proxy, le certificat SSL et son renouvellement, le process manager, et surtout la maintenance de sécurité *indéfiniment*. Disproportionné pour un premier déploiement.
+  - **Hébergement gratuit OVH** (inclus à l'achat du domaine) : écarté — hébergement PHP mutualisé, ne peut techniquement pas exécuter une application Node.js (confirmé via la documentation OVH), 100 Mo de stockage insuffisant.
+  - **Dockerfile** : sur Render, le support natif de Node suffit déjà, un Dockerfile n'apporterait rien ici.
+  - **o2switch** : identifié comme une alternative sérieuse (Node.js réellement supporté, ~7 €/mois tout compris, système de "comptes Lune" pertinent pour cloisonner plusieurs projets clients) mais non retenu pour ce déploiement — Render existant fonctionnait déjà. Piste à garder en tête pour un futur projet.
+- **Décision finale : Render confirmé** pour un premier déploiement.
+
+**Gouvernance du compte Render** :
+
+- Problème identifié : la facturation Render se fait au niveau du *workspace*, pas du service — un service non lié au projet d'Alicia ajouté par erreur dans le même workspace aurait été facturé sur sa carte.
+- Option "inviter le développeur comme membre (rôle Developer)" sur un compte à part entière au nom d'Alicia évaluée, mais nécessite le palier **Pro à 25 $/mois** (le palier gratuit Hobby ne permet pas d'inviter de membres) — jugé disproportionné pour ce projet.
+- **Décision actée** : nouveau compte Render créé au nom d'Alicia, service recréé dessus.
+- Connexion du nouveau service au dépôt GitHub via l'**URL publique du repo** (le dépôt étant public), redéploiement manuel (bouton "Manual Deploy") à chaque mise à jour.
+
+**Nom de domaine et DNS (OVH)** :
+
+- `peigneetblabla.fr` acheté chez OVH.
+- Domaine personnalisé ajouté et vérifié côté Render (`peigneetblabla.fr` et `www.peigneetblabla.fr`), certificats HTTPS émis automatiquement (Let's Encrypt). `www` redirige automatiquement vers la version sans `www` (comportement Render par défaut, bénéfique pour le SEO).
+- Enregistrements DNS ajoutés dans la Zone DNS OVH :
+  - `@ A → 216.24.57.1` et `www A → 216.24.57.1` (routage vers Render).
+  - `resend._domainkey TXT` (DKIM), `send MX` + `send TXT` (SPF), `_dmarc TXT` (DMARC, optionnel) pour la vérification du domaine sur Resend.
+
+**Email transactionnel (Resend)** :
+
+- Domaine `peigneetblabla.fr` vérifié côté Resend (fonctionnalité *Sending*), envoi activé ("Enable Sending").
+- `services/email.service.js` : adresse d'expédition extraite en dur (`onboarding@resend.dev`) vers une variable d'environnement `CONTACT_EMAIL_FROM` — `onboarding@resend.dev` en local/développement, `noreply@peigneetblabla.fr` en production.
+
+**Sécurité (session)** : `cookie.secure` passé en `true` en production (site servi en HTTPS par Render).
+
+**Recette finale** : HTTPS, affichage mobile, galerie, carte Google Maps, avis Google, formulaire de contact (test réel effectué en production, email bien reçu côté Alicia avec la bonne adresse d'expédition), bouton d'appel, console navigateur sans erreur — tous validés sur `https://peigneetblabla.fr`.
+
 ### À poursuivre
 
-- `cookie.secure: false` à repasser à `true` avant le déploiement en production.
-- Remplacer le Place ID de test par celui d'Alicia une fois sa fiche Google Business vérifiée.
-- Créer un log sur Resend avec le mail de peigneetblabla@gmail.com :
-  - récupérer le RESEND_API_KEY à remplacer dans le .env
-  - modifier l'adresse CONTACT_EMAIL_TO du .env avec celui de peigneetblabla@gmail.com
-  - paramétrer Resend avec le vrai nom de domaine
-- Reprendre le plan de déploiement Render (variables d'environnement prod → DNS avec `www.peigneetblabla.fr` → HTTPS → checklist finale).
+- Mettre à jour le README avec la nouvelle organisation des comptes (Render au nom d'Alicia, accès du développeur par identifiants partagés, absence de déploiement automatique).
+- Reprendre le sujet tests unitaires/intégration dans une conversation dédiée (premier test déjà écrit et validé sur `services/cloudinary.service.js` à titre d'exercice, à formaliser).
