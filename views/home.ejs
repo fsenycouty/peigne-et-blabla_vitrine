@@ -311,38 +311,38 @@
     </section>
 
     <!-- ============ AVIS ============ -->
-    <!-- <section class="section" id="reviews">
+    <section class="section" id="reviews">
       <p class="eyebrow">TÉMOIGNAGES</p>
       <h2 class="h2 h2-spaced">Ils m'ont fait confiance</h2>
 
       <div class="google-badge">
         <div class="google-icon">G</div>
         <div>
-          <div class="google-rating-score">dataReviews.totalRating<span class="google-rating-stars">★</span></div>
+          <div class="google-rating-score"><%= dataReviews.totalRating %><span class="google-rating-stars">★</span></div>
           <div class="google-rating-count">basé sur les avis Google</div>
         </div>
-        <a href="dataReviews.googleReviewsUrl" class="btn-outline google-badge-link">Voir tous les avis</a>
-      </div> -->
+        <a href="<%= dataReviews.googleReviewsUrl %>" class="btn-outline google-badge-link">Voir tous les avis</a>
+      </div>
 
-      <!-- <div class="review-grid">
-        for (const review of dataReviews.threeRecentReviews) {
+      <div class="review-grid">
+        <% for (const review of dataReviews.threeRecentReviews) { %>
         <div class="card">
           <div class="stars">
-            for (let i=0; i<review.rating; i++) {
+            <% for (let i=0; i<review.rating; i++) { %>
             <i class="ti ti-star" aria-hidden="true"></i>
-              }
+             <% } %>
           </div>
           <div class="review-quote">
-            review.text
+           <%= review.text %>
           </div>
-          <div class="review-author">review.name</div>
+          <div class="review-author"><%= review.name %></div>
           <div class="review-tag">
             <i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google
           </div>
         </div>
-        }
+       <% } %>
       </div>
-    </section> -->
+    </section>
 
     <!-- ============ CONTACT ============ -->
     <section class="section section-white" id="contact">
