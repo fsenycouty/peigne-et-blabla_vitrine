@@ -24,7 +24,7 @@
         <img src="/img/decor.svg" alt="" class="decor" aria-hidden="true" fetchpriority="high"/>
         <div class="green-row">
           <img
-            src="/img/logo.png"
+            src="/img/logo.webp"
             alt="Logo Peigne et bla-bla"
             class="green-logo"
             width="136"
@@ -188,6 +188,10 @@
                   <td>Tresses / chignon / coiffage</td>
                   <td colspan="3">Sur devis</td>
                 </tr>
+                <tr>
+                  <td>Lissage / défrisage</td>
+                  <td colspan="3">Sur devis</td>
+                </tr>
               </table>
             </div>
           </div>
@@ -326,17 +330,17 @@
           <div class="stars">
             <% for (let i=0; i<review.rating; i++) { %>
             <i class="ti ti-star" aria-hidden="true"></i>
-              <% } %>
+             <% } %>
           </div>
           <div class="review-quote">
-            <%= review.text %>
+           <%= review.text %>
           </div>
-          <div class="review-author">— <%= review.name %></div>
+          <div class="review-author"><%= review.name %></div>
           <div class="review-tag">
             <i class="ti ti-brand-google" aria-hidden="true"></i>Avis Google
           </div>
         </div>
-        <% } %>
+       <% } %>
       </div>
     </section>
 
