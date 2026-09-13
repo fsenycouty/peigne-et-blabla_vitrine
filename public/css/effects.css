@@ -1,0 +1,291 @@
+/* =========================================================
+   Peigne et bla-bla — COUCHE D'EFFETS (ajout)
+   Aucune couleur, taille ni mise en page d'origine n'est modifiée :
+   uniquement des transitions, apparitions et micro-animations.
+   À charger APRÈS style.css.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. Apparition au scroll, en cascade dans chaque bloc
+   (titre, puis texte, puis cartes — décalage 140 ms)
+   Les classes sont posées par effects.js.
+   --------------------------------------------------------- */
+.fx-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.fx-reveal.fx-left { transform: translateX(-18px); }
+.fx-reveal.fx-right { transform: translateX(18px); }
+.fx-reveal.fx-zoom { transform: scale(0.975) translateY(12px); }
+
+.fx-reveal.fx-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Sortie : plus rapide que l'entrée et sans décalage, pour rester discrète */
+.fx-reveal:not(.fx-in) {
+  transition-duration: 0.3s;
+  transition-delay: 0s !important;
+}
+
+/* ---------------------------------------------------------
+   2. Lignes de tarifs : cascade à l'ouverture de l'onglet
+   --------------------------------------------------------- */
+.fx-row {
+  animation: fxRowIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes fxRowIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------
+   3. Header collant, toujours visible, compact au scroll
+   --------------------------------------------------------- */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.site-header {
+  transition:
+    padding 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 0.35s ease,
+    backdrop-filter 0.35s ease,
+    box-shadow 0.35s ease;
+}
+.site-header.fx-compact {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 14px rgba(51, 50, 45, 0.14);
+}
+/* Les ancres ne se retrouvent plus cachées sous le header */
+[id] {
+  scroll-margin-top: 76px;
+}
+
+/* Jauge de progression, rose, sous le header */
+.fx-progress {
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 3px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--rose-deep);
+  pointer-events: none;
+}
+
+/* Lien de la section courante */
+.nav-links a {
+  position: relative;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--sage-dark);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.nav-links a.fx-current { color: var(--sage-dark); }
+.nav-links a.fx-current::after,
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ---------------------------------------------------------
+   4. Relief des éléments cliquables
+   --------------------------------------------------------- */
+.btn-pink,
+.btn-outline,
+.offer-details summary,
+label.tab {
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.25s ease;
+}
+.btn-pink:hover,
+.btn-outline:hover,
+.offer-details summary:hover,
+label.tab:hover {
+  transform: translateY(-2px);
+}
+.btn-pink:active,
+.btn-outline:active,
+label.tab:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Cartes d'avis qui se soulèvent */
+.review-grid .card {
+  transition: none;
+}
+.review-grid .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(51, 50, 45, 0.09);
+}
+
+/* Champs du formulaire */
+.contact-form input,
+.contact-form textarea {
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(143, 160, 140, 0.18);
+}
+
+/* ---------------------------------------------------------
+   5. Galerie : retournement 3D avant/après, au clic uniquement
+   Chaque photo pivote sur elle-même dans la perspective de la
+   carte : pas d'empilement preserve-3d, donc pas de face vide.
+   --------------------------------------------------------- */
+@media (min-width: 760px) {
+  .ba-slider {
+    perspective: 1400px;
+  }
+
+  .ba-slide {
+    opacity: 1 !important;
+    backface-visibility: hidden;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.85s cubic-bezier(0.2, 0.85, 0.2, 1);
+  }
+  .ba-slide.ba-before { transform: rotateY(0deg); z-index: 2; }
+  .ba-slide.ba-after { transform: rotateY(180deg); z-index: 2; }
+
+  /* Au clic : les deux faces pivotent ensemble */
+  .ba-slider.fx-flipped .ba-slide.ba-before,
+  .ba-slider:has(.ba-toggle-input:checked) .ba-slide.ba-before {
+    transform: rotateY(-180deg);
+  }
+  .ba-slider.fx-flipped .ba-slide.ba-after,
+  .ba-slider:has(.ba-toggle-input:checked) .ba-slide.ba-after {
+    transform: rotateY(0deg);
+  }
+
+  /* Le survol annonce l'action : relief instantané + curseur */
+  .ba-slider:hover {
+    translate: 0 -3px;
+    box-shadow: 0 12px 26px rgba(51, 50, 45, 0.16);
+  }
+
+  /* Plus de pastille : toute la photo devient la zone cliquable */
+  .ba-toggle-label {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: auto;
+    height: auto;
+    border-radius: 14px;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+    transition: none;
+    z-index: 3;
+    cursor: pointer;
+  }
+  .ba-toggle-label i { display: none; }
+  .ba-toggle-input:focus-visible ~ .ba-toggle-label {
+    outline: 2px solid var(--sage-dark);
+    outline-offset: 2px;
+  }
+}
+
+/* ---------------------------------------------------------
+   6. Décor : respiration lente + parallaxe légère
+   (translate reste libre, transform garde rotation / miroir)
+   --------------------------------------------------------- */
+.green-band .decor,
+.decor-footer,
+.decor-footer-reverse,
+.green-logo {
+  will-change: translate;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .green-band .decor {
+    animation: fxBreathe 24s ease-in-out infinite;
+  }
+  .decor-footer,
+  .decor-footer-reverse {
+    animation: fxGlow 18s ease-in-out infinite;
+  }
+}
+@keyframes fxBreathe {
+  0%, 100% { transform: rotate(-27deg) scale(1); }
+  50% { transform: rotate(-27deg) scale(1.06); }
+}
+@keyframes fxGlow {
+  0%, 100% { opacity: 0.08; }
+  50% { opacity: 0.18; }
+}
+
+/* ---------------------------------------------------------
+   7. Retour en haut : n'apparaît qu'après le premier écran
+   --------------------------------------------------------- */
+.back-to-top {
+  opacity: 0;
+  transform: translateY(14px) scale(0.9);
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s cubic-bezier(0.2, 0.85, 0.2, 1),
+    background-color 0.15s ease;
+}
+.back-to-top.fx-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* ---------------------------------------------------------
+   8. Accessibilité : tout se fige si l'utilisateur le demande
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .fx-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .fx-row,
+  .green-band .decor,
+  .decor-footer,
+  .decor-footer-reverse {
+    animation: none !important;
+  }
+  .green-band .decor,
+  .decor-footer,
+  .decor-footer-reverse,
+  .green-logo { translate: none !important; }
+  .fx-progress { display: none; }
+  .back-to-top {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+}

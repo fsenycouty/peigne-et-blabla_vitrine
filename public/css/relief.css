@@ -1,0 +1,112 @@
+/* =========================================================
+   Peigne et bla-bla — COUCHE DE RELIEF (ajout)
+   Uniquement des ombres, des bordures fines et des séparations.
+   Aucune couleur, taille, police ni mise en page n'est modifiée.
+   À charger APRÈS style.css (et effects.css).
+   Pour tout annuler : retirer ce seul fichier.
+   ========================================================= */
+
+/* --- Sections blanches : elles se détachent du fond crème --- */
+.section-white {
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(51, 50, 45, 0.04),
+    0 10px 30px -12px rgba(51, 50, 45, 0.14);
+}
+
+/* --- Cartes : une vraie élévation au lieu d'un aplat --- */
+.card {
+  border: 1px solid var(--border);
+  box-shadow:
+    0 1px 1px rgba(51, 50, 45, 0.03),
+    0 6px 18px -10px rgba(51, 50, 45, 0.18);
+}
+.section-white .card {
+  border-color: #f2ece6;
+}
+
+/* --- Bandeau vert : ancré par une ombre portée basse --- */
+.green-band {
+  box-shadow:
+    inset 0 -1px 0 rgba(51, 50, 45, 0.07),
+    0 14px 28px -22px rgba(51, 50, 45, 0.55);
+}
+.green-logo {
+  box-shadow:
+    0 10px 24px -8px rgba(51, 50, 45, 0.35),
+    0 2px 4px rgba(51, 50, 45, 0.12);
+}
+
+/* --- Étiquette du héro et pastilles --- */
+.hero-tagline {
+  box-shadow: 0 4px 12px -6px rgba(122, 46, 54, 0.35);
+}
+.offer-details summary,
+.radius-badge {
+  box-shadow: 0 3px 10px -5px rgba(51, 50, 45, 0.3);
+}
+
+/* --- Boutons : ils sortent de la page --- */
+.btn-pink {
+  box-shadow: 0 2px 6px -2px rgba(122, 46, 54, 0.3);
+}
+.btn-pink:hover,
+.btn-pink:focus-visible {
+  box-shadow: 0 10px 22px -10px rgba(122, 46, 54, 0.55);
+}
+.btn-outline {
+  box-shadow: 0 2px 6px -3px rgba(79, 95, 76, 0.35);
+}
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  box-shadow: 0 10px 22px -10px rgba(79, 95, 76, 0.5);
+}
+label.tab {
+  box-shadow: 0 2px 5px -3px rgba(51, 50, 45, 0.3);
+}
+.tab-radio:checked + label.tab {
+  box-shadow: 0 6px 16px -8px rgba(79, 95, 76, 0.7);
+}
+
+/* --- Galerie, avis, contact --- */
+.ba-slider {
+  box-shadow: 0 8px 22px -12px rgba(51, 50, 45, 0.4);
+}
+.google-badge {
+  box-shadow: 0 6px 18px -12px rgba(51, 50, 45, 0.35);
+}
+.google-icon {
+  box-shadow: 0 2px 6px -3px rgba(51, 50, 45, 0.3);
+}
+.map-box,
+.coords-box {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.map-box {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 8px 22px -14px rgba(51, 50, 45, 0.4);
+}
+.contact-form input,
+.contact-form textarea {
+  box-shadow: inset 0 1px 2px rgba(51, 50, 45, 0.05);
+}
+
+/* --- Tableau de tarifs : l'en-tête se distingue des lignes --- */
+.price-table th {
+  box-shadow: inset 0 -1px 0 var(--border);
+}
+
+/* --- Header et pied de page --- */
+.site-header {
+  box-shadow: 0 1px 0 rgba(51, 50, 45, 0.06);
+}
+.site-footer {
+  box-shadow: inset 0 1px 0 rgba(51, 50, 45, 0.07);
+}
+.footer-social a {
+  box-shadow: 0 3px 8px -4px rgba(51, 50, 45, 0.35);
+}
+.back-to-top {
+  box-shadow: 0 8px 20px -6px rgba(51, 50, 45, 0.45);
+}
