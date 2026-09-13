@@ -34,8 +34,8 @@ app.use(session(
     resave: false,
     saveUninitialized: false,
     cookie:
-      { //TODO : remplacer par true au passage en production
-        secure: false
+      {
+        secure: true
       }
   }
 ));
