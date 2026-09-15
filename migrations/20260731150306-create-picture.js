@@ -11,6 +11,7 @@
 module.exports = {
   /**
    * Applique la migration : crée la table "pictures".
+   * npx sequelize-cli db:migrate
    * @param {import('sequelize').QueryInterface} queryInterface
    * @param {import('sequelize').Sequelize} Sequelize
    */
@@ -29,7 +30,8 @@ module.exports = {
   },
 
   /**
-   * Annule la migration : supprime la table "pictures".
+   * En cas d'erreur, annule la migration : supprime la table "pictures".
+   * npx sequelize-cli db:migrate:undo
    * @param {import('sequelize').QueryInterface} queryInterface
    */
   async down(queryInterface) {

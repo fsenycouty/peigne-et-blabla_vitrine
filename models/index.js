@@ -1,7 +1,7 @@
 import Picture from './Picture.js';
 import BeforeAfterPicture from './BeforeAfterPicture.js';
 
-// ** Association : 1 Picture belongs To One BeforeAfterPicture **
+// ** Association : 1 BeforeAfterPicture belongsTo 2 Picture (before / after) **
 
 //* Pour la photo "avant"
 BeforeAfterPicture.belongsTo(
@@ -15,9 +15,9 @@ BeforeAfterPicture.belongsTo(
 );
 Picture.hasOne(
   BeforeAfterPicture,
-  { 
+  {
     foreignKey: "beforePictureId",
-    as: "before"
+    as: "asBeforeOf"
   }
 );
 
@@ -34,9 +34,9 @@ BeforeAfterPicture.belongsTo(
 );
 Picture.hasOne(
   BeforeAfterPicture,
-  { 
+  {
     foreignKey: "afterPictureId",
-    as: "after"
+    as: "asAfterOf"
   }
 );
 
