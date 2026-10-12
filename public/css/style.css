@@ -444,11 +444,15 @@ textarea:focus-visible {
 }
 .offer-flyer-trigger {
   display: inline-block;
+  max-width: 100%;
   margin-top: 8px;
   cursor: zoom-in;
 }
 .offer-flyer-thumb {
-  max-width: 200px;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 280px;
   border-radius: 8px;
 }
 .lightbox-overlay {
@@ -458,11 +462,16 @@ textarea:focus-visible {
   background: rgba(0, 0, 0, 0.85);
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: 110;
 }
 .lightbox-toggle:checked ~ .lightbox-overlay {
   display: flex;
 }
+
+html:has(.lightbox-toggle:checked) {
+  overflow: hidden;
+}
+
 .lightbox-close {
   cursor: zoom-out;
 }
